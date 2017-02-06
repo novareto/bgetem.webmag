@@ -1,0 +1,67 @@
+<div class="container inhalt-wrapper">
+  <div class="inhalt-category card-main">
+    <div class="row">
+      <div class="col-sm-12">
+	<div class="row">
+	  <div class="col-md-3 col-sm-12">
+	    <h3 class="text-uppercase" tal:content="context/category" />
+	    <div class="" tal:attributes="class view/lineclass"
+		 style="margin-left:0px;"/>
+	  </div>
+	  <div class="col-md-6 col-sm-12">
+	    <div class="media description_content">
+	      <div id="viewlet-above-content-title"
+		   tal:content="structure provider:plone.abovecontenttitle" />
+	      <div class="media-body">
+		<h1 tal:content="context/title" />
+	      </div>
+	      <div id="viewlet-below-content-title"
+		   tal:content="structure provider:plone.belowcontenttitle" />
+	    </div>
+	    
+	    <div class="main-content description_content">  
+	      <article class="two-columns">
+		<!--<figure class="one-span margin-bottom-10">
+		  <img class="img-responsive"
+		       width="100%"
+		       tal:attributes="src view/image" />
+		</figure>-->
+		<h3 tal:content="context/description" />
+		<div id="viewlet-above-content-body"
+		   tal:content="structure provider:plone.abovecontentbody"/>
+		<div id="parent-fieldname-text"
+		     tal:condition="context/text"
+		     tal:content="structure python:context.text.output_relative_to(view.context)" />
+	      </article>
+	    </div>
+            <div class="sharedoc">
+	      <h4><strong>Diesen Beitrag teilen</strong></h4>
+	      <ul class="list-inline">
+		<li class="social-icon">
+		  <a class="btn btn-primary" href=""
+		     tal:attributes="href string:https://www.facebook.com/sharer/sharer.php?u=${view/quoted}"
+		     ><i class="fa fa-facebook"></i></a>
+		</li>
+		<li class="social-icon">
+		  <a class="btn btn-primary" href=""
+		     tal:attributes="href string:https://twitter.com/home?status=${view/quoted}"
+		     ><i class="fa fa-twitter"></i></a>
+		</li>
+		<li class="social-icon">
+		  <a class="btn btn-primary" href=""
+		     tal:attributes="href string:https://www.linkedin.com/shareArticle?mini=true&url=${view/quoted}&title=${view/titlequoted}&summary=&source="
+		     ><i class="fa fa-linkedin"></i></a>
+		</li>
+		<li class="social-icon">
+		  <a class="btn btn-primary" href=""
+		     tal:attributes="href string:https://www.xing.com/spi/shares/new?url=${view/quoted}"
+		     ><i class="fa fa-xing"></i></a>
+		</li>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>

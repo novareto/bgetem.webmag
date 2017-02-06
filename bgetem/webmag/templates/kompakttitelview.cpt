@@ -1,0 +1,23 @@
+<div class="container cards-wrapper">
+<div class="row row-bottom-margin between-sm">
+  <div class="col-xs-12 col-sm-8">
+    <div tal:define="mystory string:titelstory" tal:content="structure shard:story"> </div>
+  </div>
+  <div class="col-xs-12 col-sm-4 card-portlet cards">
+    <div tal:define="myeditorial string:editorial" tal:content="structure shard:editorial"></div>
+  </div>
+</div>
+<div class="row row-bottom-margin between-sm">
+  <div class="card-grau col-xs-12 col-sm-3 cards" tal:define="document string:zum-thema" tal:content="structure shard:richtext"> </div>
+  <div class="card-blue col-xs-12 col-sm-3 cards" tal:define="document string:zahl-des-monats" tal:content="structure shard:document"> </div>
+  <div class="card-gelb col-xs-12 col-sm-6 cards" tal:define="document string:interview" tal:content="structure shard:richtext"> </div>
+</div>
+<div class="row row-bottom-margin between-sm">
+  <div class="card-orange col-xs-12 col-sm-6 cards" tal:define="document string:meldung" tal:content="structure shard:richtext"></div>
+  <div class="card-orange col-xs-12 col-sm-3 cards" tal:define="document string:medienecke" tal:content="structure shard:richtext"></div>
+  <div class="card-blue col-xs-12 col-sm-3 cards" tal:define="document string:termine" tal:content="structure shard:richtext"></div>
+</div>
+<div class="row row-bottom-margin between-sm">  
+  <div class="card-grau col-sm-12 cards footercard" tal:define="document string:nachricht" tal:content="structure shard:footer"></div>
+</div>
+</div>

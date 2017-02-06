@@ -1,0 +1,15 @@
+<footer class="footer">
+  <div class="container">
+    <ul class="navbar-nav list-inline">
+      <li class="text-muted description_content">&copy; Deutsche Gesetzliche Unfallversicherung |</li>
+      <li class="text-muted"><a target="_blank" href="http://www.bgetem.de/de/wir-ueber-uns/impressum/index.jsp">Impressum</a> |</li>
+      <li class="text-muted"><a tal:attributes="href viewlet.rechteurl">Bildnachweise</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class=""><a target="_blank" href="http://www.bgetem.de">
+	<img style=padding-top:10px; class="img-responsive"
+	     src="/++resource++bgetem.webmag/assets/img/bgetem-logo.png"></a>
+      </li>
+    </ul>
+  </div>
+</footer>

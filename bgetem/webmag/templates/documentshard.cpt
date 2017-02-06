@@ -1,0 +1,7 @@
+<div tal:define="banner shard.banner()">
+  <h3 class="text-uppercase cardhead" tal:content="banner.get('subject')"> Überschrift </h3>
+  <div tal:attributes="class banner.get('lineclass')"></div>
+  <h3 tal:condition="banner.get('title')" tal:content="banner.get('title')"> Überschrift </h3>
+  <!--<strong><p tal:content="banner.get('description')">Beschreibung </p></strong>-->
+  <span tal:condition="banner.get('richtext')" tal:replace="structure banner.get('richtext')"/>
+</div>

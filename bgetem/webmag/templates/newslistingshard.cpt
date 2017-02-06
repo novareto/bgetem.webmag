@@ -1,0 +1,6 @@
+<h2> News Listing </h2>
+<ul>
+  <li tal:repeat="news shard.get_news()">
+     <span tal:content="news.pretty_title_or_id()"/>
+  </li>
+</ul>

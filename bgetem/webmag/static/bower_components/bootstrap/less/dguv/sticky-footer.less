@@ -1,0 +1,93 @@
+
+/* Custom Styles DGUV */
+
+// Sticky footer styles
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  // Margin bottom by footer height 
+  margin-bottom: 80px;
+   -webkit-hyphens: auto;
+ -moz-hyphens: auto;
+ -ms-hyphens: auto;
+ hyphens: auto;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  background-color: #f5f5f5;
+}
+body > .inhalt-wrapper,
+body > .cards-wrapper {
+  padding: 120px 15px 0;
+}
+.ivz {border-bottom:6px solid @bgetem-blue;}
+@media (max-width: 768px) {
+    .navbar-fixed-top, .navbar-fixed-bottom {
+    position: inherit; 
+  }
+  body > .inhalt-wrapper,
+  body > .cards-wrapper {
+    padding-top:0;
+  }
+  .ivz-navi {
+    text-align:center;
+      .pull-right {float:none !important;}
+  }
+  .navbar-brand {
+    padding: 10px;
+    }
+  h1.header-title {margin-top:-10px;}
+  .ivz {border-bottom:0;}
+  .row-bottom-margin {margin-bottom: 0px !important;}
+  .col-xs-6, .col-xs-12 {margin-bottom: 8px;}
+}
+@media only screen and (min-width: 48em) {
+  .ivz-navi {
+      padding-bottom:10px;
+  }
+  .media-right {display:block;}
+  .cards-wrapper {padding-top:180px !important;}
+}
+
+// Custom page CSS
+
+// Not required for template or sticky footer method
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.navbar-nav {margin-top:30px;}
+footer .navbar-nav {margin-top:0;}
+.navbar-nav > li > a {padding-top:5px !important;padding-bottom:5px !important;}
+button.collapsed {padding:6px 8px 4px 8px !important;}
+.fa.fa-bars {font-size:18px !important;}
+
+.event-time {font-size:@font-size-h3}
+.visual-heading, .visual-text {z-index:999;}
+.visual-heading:before {
+    content: "Top Thema";
+    text-transform: uppercase;
+    position: absolute;
+    top: 10px;
+    font-size: 16px;
+    color: #093999;
+}
+.visual-heading,
+h4.media-heading {font-size:36px;font-weight:bold;}
+.twitter a {font-size:20px;color:@gray-dark;}
+
+.internal-link {color:@gray-dark;}

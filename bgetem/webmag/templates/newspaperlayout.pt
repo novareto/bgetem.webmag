@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="bgetem.webmag">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css"
+	  tal:attributes="href string:/++resource++bgetem.webmag/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css"
+	  tal:attributes="href string:/++resource++bgetem.webmag/site.css" />
+    <link rel="stylesheet" type="text/css"
+	  tal:attributes="href string:/++resource++bgetem.webmag/flexboxgrid.css" />
+  </head>
+  <body>
+    <div>
+      <div tal:replace="structure provider:pagetop"></div>
+      <div tal:replace="structure python: view.content()"> </div>
+      <div tal:replace="structure provider:footer"> </div>
+      <script tal:attributes="src string:/++resource++bgetem.webmag/jquery/dist/jquery.min.js" />
+      <script tal:attributes="src string:/++resource++bgetem.webmag/bootstrap/dist/js/bootstrap.min.js" />
+      <script tal:attributes="src string:/++resource++bgetem.webmag/jquery-match-height/dist/jquery.matchHeight-min.js" />
+    </div>
+  </body>
+</html>

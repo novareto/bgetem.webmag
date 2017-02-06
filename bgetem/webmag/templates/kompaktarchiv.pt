@@ -1,0 +1,33 @@
+<div class="container inhalt-wrapper">
+  <div class="inhalt-category card-main">
+    <div class="row">
+
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-md-3 col-sm-12">
+            <h3 class="text-uppercase">Archiv</h3>
+            <div class="title-border line-blue" style="margin-left:0px;"/>
+          </div>
+          <div class="col-md-6 col-sm-12">
+          <h1>2016</h1>
+            <table class="table table-striped">
+            <thead>
+              <th style="width:30%">Ausgabe</th>
+              <th style="width:40%">TOP THEMA</th>
+              <th style="width:30%">Titelbild</th>
+            </thead>
+    <tbody>
+      <tr tal:repeat="entry view/archiv">
+        <td data-title="Ausgabe"><a href="" tal:attributes="href entry/url" tal:content="entry/title"></a></td>
+        <td data-title="TOP THEMA" tal:content="entry/storytitle"/>
+        <td data-title="Titelbild"><img tal:attributes="src entry/imgurl"></td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="http://www.bgetem.de/de/mediencenter/bgetem-kompakt/index.jsp" target="_blank">&gt;&gt; ältere Ausgaben</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div tal:define="banner shard.banner()">
+  <div class="card-portlet-teaser card-hover">
+    <a class="" href="article-01.html" tal:attributes="href banner.get('url')">
+      <div class="media-body">
+        <h3 class="text-uppercase" tal:content="banner.get('subject')">Editorial</h3>
+        <h3 class="" tal:content="banner.get('newstext')">Weichenstellungen<i class="fa fa-angle-right"></i></h3>
+      </div>
+      <div class="col-sm-5 col-md-push-7">
+        <img class="row-bottom-margin img-responsive" alt="Dr. Joachim Breuer Hauptgeschäftsführer der DGUV" 
+         title="Dr. Joachim Breuer Hauptgeschäftsführer der DGUV" tal:attributes="src banner.get('banner_image')">
+      </div>
+      <div class="col-sm-7 col-md-pull-5">
+      <p class="row-bottom-margin" style="padding-top:0px;">Dr. Joachim Breuer Hauptgeschäftsführer der DGUV</p>
+      </div>
+    </a>
+  </div>
+  <div class="card-portlet-teaser card-hover">
+    <ul class="list-unstyled">
+      <li class="twitter"><i style="color:#2DCFFA;font-size:28px;padding-bottom: 15px;" class="fa fa-twitter"></i>
+      <a style="font-weight: bold;font-size:24px;" href="">@DGUVKompakt</a></li>
+    </ul>
+    <div tal:repeat="tweet banner['tweets']">
+      <div class="col-sm-3 col-md-pull-5" tal:repeat="tweet banner['tweets']">
+
+      <li class="teaser-hover" tal:repeat="tweet banner['tweets']">
+        <!--<a href="" class="internal-link"
+	   tal:attributes="href shard.tweet_url + str(tweet.id)">
+          <p class="small">
+	    <span class="twitter-date pull-right">
+	      <i aria-hidden="true" class="fa fa-twitter"></i>
+	      <span tal:replace="tweet.created_at" />
+	    </span>
+	  </p>
+          <p tal:replace="tweet.text" />
+	</a>-->
+        <img src="" tal:attributes="src tweet['thumb']"><span tal:content="structure tweet['title']"/>
+        <span tal:content="tweet['date']"/>
+      </li>
+    </ul>  
+  </div>
+</div>

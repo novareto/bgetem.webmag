@@ -1,0 +1,14 @@
+<div tal:define="banner shard.banner()">
+<div class="card-main">
+  <a href="" tal:attributes="href banner.get('url')">
+    <img class="img-responsive" src="" tal:attributes="src banner.get('banner_image');
+                                                       title banner.get('newstitle');
+                                                       alt banner.get('alt')"></a>
+    <div class="description">
+      <a class="description-content" tal:attributes="href banner.get('url')">
+        <h2 class="visual-heading" tal:content="banner.get('title')">Überschrift</h2>
+        <p class="visual-text" tal:content="banner.get('description')"/>
+      </a> 
+    </div>  
+  </div>
+</div>
