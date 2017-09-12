@@ -38,13 +38,14 @@ class DocumentShard(BaseShard):
             obj = self.context.get(doc)
         banner = {}
         if obj:
-            banner['subject'] = obj.category
-            banner['title'] = obj.newstitle
-            banner['lineclass'] = 'title-border line-%s' % obj.colorcode
+            banner['title'] = obj.title
             banner['description'] = obj.description
-            banner['richtext'] = ''
-            if obj.text:
-                banner['richtext'] = obj.text.output
+            banner['banner_image'] = ('%s/@@images/newsimage' %
+                                      obj.absolute_url())
+            banner['url'] = obj.absolute_url()
+            banner['imgtitle'] = obj.newstitle
+            banner['category'] = obj.category
+            banner['colorclass'] = 'card-%s' % obj.colorcode
         return banner
 
 
@@ -206,10 +207,16 @@ class EventListShard(BaseShard):
         folder = self._namespace.get('eventfolder')
         obj = self.context.get(folder)
         eventlist = []
-        for i in obj.getFolderContents():
+        results = []
+        if obj.portal_type == 'Folder':
+            results = obj.getFolderContents()
+        elif obj.portal_type == 'Collection': 
+            results = obj.results(brains=False, b_size=5)
+        for b in results:
+            i = b.getObject()
             if i.portal_type == 'Event':
                 event = {}
-                event['eventtext'] = i.Title.decode('utf-8')
+                event['eventtext'] = i.title
                 if i.start.date() == i.end.date():
                     event['date'] = i.start.strftime("%d.%m.%Y")
                 else:
@@ -225,6 +232,7 @@ class EventListShard(BaseShard):
                         event['date'] = "%s - %s" % (
                             i.start.strftime("%d.%m.%Y"),
                             i.end.strftime("%d.%m.%Y"))
+                event['location'] = i.location
                 eventlist.append(event)
         return eventlist
 

@@ -1,8 +1,8 @@
-<div tal:define="eventlist shard.banner()">
-  <h3>Termine</h3>
-  <hr/>
-  <article class="description-content event" tal:repeat="event eventlist">
-    <h4 class="event-time" tal:content="event.get('date')" />
-    <p tal:content="event.get('eventtext')" />
-  </article>  
-</div>
+<h4 class="media-heading">Termine</h4>
+<ul class="event" tal:define="eventlist shard.banner()">
+  <li class="small-blue-event" tal:repeat="event eventlist">
+    <strong tal:content="event.get('date')" />, <strong tal:content="event.get('location')" /><br />
+    <span tal:content="event.get('eventtext')" />
+    <span class="seperator" tal:condition="not repeat.event.end" />
+  </li>
+</ul>

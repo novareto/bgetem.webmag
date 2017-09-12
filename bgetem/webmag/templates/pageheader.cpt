@@ -1,98 +1,53 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="wrapper-header" style="padding-top:10px;">
-      
-      <div class="col-md-12">
-	
-        <div class="col-sm-4 col-xs-12 col-sm-push-8">
-          <ul class="list-inline header-logo">
-            <li>
-	      <a target="_blank" href="http://www.bgetem.de"><img class="main-logo" style="max-width:100%"
-		     alt="Homepage – DGUV" title="Homepage – DGUV"
-		     tal:attributes="src string:/++resource++bgetem.webmag/assets/img/Logo-DGUV-RGB.png" /></a>
-	    </li>
+  <header>
+    <nav class="navbar">
+      <div class="wrapper-header">
+        <div id="myNav" class="overlay">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <div class="overlay-content">
+            <a alt="" title="" href="index.html">Archiv</a>
+            <a alt="" title="" href="index.html">Inhalt</a>
+            <a alt="" title="" href="index-grid-article.html">Weiter</a>
+            <a alt="" title="" href="www.bgetem.de"><img class="im-menu"
+		 tal:attributes="src string:/++resource++bgetem.webmag/assets/img/Logo-BG-ETEM-negativ.png" alt="+" /></a>
+          </div>
+        </div>
+
+        <span class="openBtn" style="font-size:30px;cursor:pointer;float:right;margin-right: 33px;margin-top:15px;border: 1px solid rgb(0,74,149); color: rgb(0,74,149);padding:10px;font-size: 24px; line-height:20px;" onclick="openNav()">&#9776;
+        </span>
+      </div>
+
+      <div class="col-lg-8 col-lg-offset-2">
+        <div class="col-sm-2 col-xs-3 col-md-1">
+          <ul class="list-inline header-logo2">
+            <li><a href="index.html"><img class="main-logo-left"
+	             tal:attributes="src string:/++resource++bgetem.webmag/assets/img/logo_etem_magazin.png"
+	             alt="Homepage – bgetem" title="Homepage – bgetem" /></a></li>
           </ul>
         </div>
-	
-        <div class="col-sm-8 col-xs-12 col-sm-pull-4">
-          <span class="" style="margin-top:10px;">
-	  <p>Nachrichten der Deutschen Gesetzlichen Unfallversicherung</p></span>
-          <div class="row flexbox">
-            <div class="navbar-header">
-              <ul class="list-inline">
-		<li>
-		  <a class="" href="" tal:attributes="href view.application_url()">
-		    <img style="margin-top:-14px;max-width:100%;" 
-                         tal:attributes="src string:/++resource++bgetem.webmag/assets/img/bgetem-kompakt-logo.png" />
-		  </a>
-		</li>
-		<li style="vertical-align:top;color:#093999;">
-		  <strong tal:content="context.__parent__.Description()" />
-		</li>
-              </ul>
-            </div>
-          </div>
-	</div>
-      </div>
-      
-      <div class="col-md-12 ivz-navi"> 
-	<div class="">
-	  <ul class="list-inline"
-	      tal:define="np viewletmanager.nextprevious()">
+        <div class="col-md-5 col-md-offset-2 col-sm-4 col-sm-offset-2 ivz-navi">
+          <ul class="list-inline collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <li><a class="btn btn-primary" alt="" title="" href="index.html">Archiv</a></li>
+            <li><a class="btn btn-primary" alt="" title="" href="index.html">Inhalt</a></li>
+            <li><a class="btn btn-primary" alt="" title="" href="index-grid-article.html">Weiter</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-2 col-sm-offset-2 col-xs-2 col-md-1 col-md-offset-3">
+          <ul class="list-inline header-logo">
+            <li><a href="www.bgetem.de"><img class="main-logo"
+	    tal:attributes="src string:/++resource++bgetem.webmag/assets/img/logo_bgetem.png"
+	    alt="Homepage – bgetem" title="Homepage – bgetem" /></a></li>
+          </ul>
+        </div>
 
-            <li> <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseExample" 
-                 aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-bars"></i> Menü</button> </li>
-
-	    <li>
-	      <a class="btn btn-primary"
-		 tal:attributes="href view.application_url()">
-		<i class="fa fa-home" aria-hidden="true"></i>
-	      </a>
-	    </li>
-            <li><a class="btn btn-primary" href="http://www.bgetem.de/de/mediencenter/bgetem-kompakt/index.jsp">Archiv</a></li>
-            <li tal:condition="np['previous']">
-	      <a class="btn btn-primary"
-		 tal:attributes="href np['previous'].url"
-		 ><i class="fa fa-angle-left"></i> zurück</a>
-	    </li>
-          <li tal:condition="np['next']">
-	    <a class="btn btn-primary"
-	       tal:attributes="href np['next'].url"
-	       >weiter <i class="fa fa-angle-right"></i></a>
-	  </li>
-	  </ul>
-	</div>
       </div>
-    
-      <div class="collapse ivz" style="width:100%;float:left;" id="collapseExample" aria-expanded="false">
-	<div class="row"> 
-	  <div class="col-sm-12"> 
-	    <h4 tal:content="string:Ausgabe ${viewlet.ausgabe}">Ausgabe Juli/August 2016</h4>
-	  </div>
-	</div>
-	<div tal:repeat="group viewlet.doclist" class="col-sm-6">
-	  <ul class="list-unstyled">
-	    <li tal:repeat="entry group">
-	      <a href="" tal:attributes="href entry.get('url')">
-              <span tal:replace="entry.get('linktitle')" />
-	      <i class="fa fa-angle-right"></i>
-	      </a>
-	    </li>
-	  </ul>
-	</div>
-        <!--
-	<div class="col-sm-3"> 
-	  <ul class="list-unstyled">
-	    <li tal:repeat="brain viewlet.get_rubriken()">
-	      <a href="" tal:attributes="href brain.getURL()">
-		<span tal:replace="unicode(brain['Title'], 'utf-8')" />
-		<i class="fa fa-angle-right"></i>
-	      </a>
-	    </li>
-	  </ul>
-	</div>
-        -->
-      </div> <!-- END: collapse ivz -->
-    </div><!-- END: wrapper-header -->
-  </div><!-- END: container -->
-</nav>
+    </nav>         
+    <script>
+      function openNav() {
+        document.getElementById("myNav").style.width = "100%";
+      }
+
+      function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+      }
+    </script>
+  </header>

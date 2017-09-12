@@ -1,7 +1,17 @@
-<div tal:define="banner shard.banner()">
-  <h3 class="text-uppercase cardhead" tal:content="banner.get('subject')"> Überschrift </h3>
-  <div tal:attributes="class banner.get('lineclass')"></div>
-  <h3 tal:condition="banner.get('title')" tal:content="banner.get('title')"> Überschrift </h3>
-  <!--<strong><p tal:content="banner.get('description')">Beschreibung </p></strong>-->
-  <span tal:condition="banner.get('richtext')" tal:replace="structure banner.get('richtext')"/>
+<div class="card-grau" tal:define="banner shard.banner()" tal:attributes="class banner.get('colorclass')">
+  <a class="description-content" href="" tal:attributes="href banner.get('url')">
+    <div class="media">
+      <img tal:attributes="src banner.get('banner_image');
+                           title banner.get('imgtitle');
+                           alt banner.get('imgtitle')"
+           class="img-responsive"/>
+    </div>
+    <p class="small" tal:content="banner.get('category')"></p>
+    <div class="media">
+      <div class="media-body">
+        <h3 class="media-heading2" tal:content="banner.get('title')"></h3>
+        <p class="teaser" tal:content="banner.get('description')"></p>
+      </div>
+    </div>
+  </a>
 </div>

@@ -58,6 +58,7 @@ class Bildrechte(Page):
         bildrechte.sort()
         self.bildrechte = bildrechte
 
+
 class Kompaktarchiv(Page):
     api.context(Interface)
     grok.layer(IAnonymousLayer)

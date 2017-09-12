@@ -14,13 +14,14 @@
       handler=".layer.switch_skin"
       />
 
-     <browser:menuItem
-        for="plone.app.contenttypes.interfaces.IFolder"
-        menu="plone_displayviews"
-        title="newspapaer_view"
-        action="@@newspaper_view"
-        description="List folder contents as product summary view"
-        />
+  <include package="plone.app.contentmenu" /> 
+  <browser:menuItem
+      for="plone.app.contenttypes.interfaces.IFolder"
+      menu="plone_displayviews"
+      title="newspapaer_view"
+      action="@@newspaper_view"
+      description="List folder contents as product summary view"
+      />
 
   <five:registerPackage package="." />
   <interface

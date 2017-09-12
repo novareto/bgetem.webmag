@@ -55,18 +55,23 @@ class Footer(api.ViewletManager):
 
 
 class PageTop(api.ViewletManager):
-    api.implements(IPageTop)
-    api.context(interface.Interface)
-    grok.layer(IAnonymousLayer)
+   api.implements(IPageTop)
+   api.context(interface.Interface)
+   grok.layer(IAnonymousLayer)
 
-    def nextprevious(self):
-        portal = ploneapi.portal.get()
-        pathroot = self.context.absolute_url_path().split('/')[1]
-        #nextprev = INextPreviousProvider(portal['bgetem-kompakt-aktuell'])
-        #nextprev = NPWebMag(portal['bgetem-kompakt-aktuell'])
-        nextprev = NPWebMag(portal[pathroot])
-        return {'next': nextprev.getNextItem(self.context),
-                'previous': nextprev.getPreviousItem(self.context)}
+   def nextprevious(self):
+      portal = ploneapi.portal.get()
+      pathroot = self.context.absolute_url_path().split('/')[1]
+      #nextprev = INextPreviousProvider(portal['bgetem-kompakt-aktuell'])
+      #nextprev = NPWebMag(portal['bgetem-kompakt-aktuell'])
+      try:
+         nextprev = NPWebMag(portal[pathroot])
+         return {'next': nextprev.getNextItem(self.context),
+                 'previous': nextprev.getPreviousItem(self.context)}
+      except:
+         return {'next': None, 'previous': None}
+         
+
     
 
 class NewsPaperLayout(Layout):

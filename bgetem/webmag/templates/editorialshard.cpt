@@ -1,20 +1,12 @@
 <div tal:define="banner shard.banner()">
   <div class="card-portlet-teaser card-hover">
     <a class="" href="article-01.html" tal:attributes="href banner.get('url')">
-      <!--<div class="media-body">
-        <h3 class="text-uppercase" tal:content="banner.get('subject')">Editorial</h3>
-        <h3 class="" tal:content="banner.get('newstext')">Weichenstellungen<i class="fa fa-angle-right"></i></h3>
-      </div>-->
-      <!--<div class="col-xs-4 col-sm-5 col-md-push-7">
-        <img class="row-bottom-margin img-responsive" alt="Dr. Joachim Breuer Hauptgeschäftsführer der DGUV" 
-         title="Dr. Joachim Breuer Hauptgeschäftsführer der DGUV" tal:attributes="src banner.get('banner_image')">
-      </div>-->
-      <div class="col-xs-9 col-sm-7">
+      <div class="flex-xs-9 flex-sm-7">
       <h3 class="text-uppercase" tal:content="banner.get('subject')">Editorial</h3>
       <h4 class="" tal:content="banner.get('newstext')">Weichenstellungen<i class="fa fa-angle-right"></i></h4>
       <p class="row-bottom-margin" style="padding-top:0px;">Dr. Joachim Breuer Hauptgeschäftsführer der DGUV</p>
       </div>
-      <div class="col-xs-3 col-sm-5">
+      <div class="flex-xs-3 flex-sm-5">
         <img class="row-bottom-margin img-responsive" alt="Dr. Joachim Breuer Hauptgeschäftsführer der DGUV" 
          title="Dr. Joachim Breuer Hauptgeschäftsführer der DGUV" tal:attributes="src banner.get('banner_image')">
       </div>
@@ -25,12 +17,12 @@
       <li class="twitter"><i style="color:#2DCFFA;font-size:28px;padding-bottom: 15px;" class="fa fa-twitter"></i>
       <a style="font-weight: bold;font-size:24px;" target="_blank" href="https://twitter.com/bgetemkompakt?lang=de">@DGUVKompakt</a></li>
     <li tal:repeat="tweet banner['tweets']">
-      <div style="padding-left:0px;" class="col-sm-2">
+      <div style="padding-left:0px;" class="flex-sm-2">
         <img src="" tal:attributes="src tweet['thumb']">
       </div>
-      <div style="margin-bottom:8px;padding-right:2px;" class="col-sm-10">
+      <div style="margin-bottom:8px;padding-right:2px;" class="flex-sm-10">
         <span><b tal:content="tweet['screen_name']"></b>&middot;<span tal:content="tweet['date']"/></span><br/>
-        <!--<span tal:content="tweet['date']"/><br/>-->
+        <span tal:condition="False" tal:content="tweet['date']" /><br/>
         <p tal:replace="structure tweet['title']"></p>
       </div>
     </li>

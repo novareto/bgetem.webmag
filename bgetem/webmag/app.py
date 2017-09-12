@@ -38,9 +38,11 @@ class ContentPage(Page):
     def update(self):
         localurl = self.context.absolute_url()
         self.image = '%s/@@images/newsimage' % localurl
-        self.lineclass = 'title-border line-%s' % self.context.colorcode
+        self.lineclass = 'title-border line-%s' % getattr(
+            self.context, 'colorcode', 'grey')
         self.quoted = urllib.quote_plus(localurl)
         self.titlequoted = urllib.quote_plus(self.context.Title())
+
 
 class PageHeader(api.Viewlet):
     grok.layer(IAnonymousLayer)
@@ -56,12 +58,14 @@ class PageHeader(api.Viewlet):
             entry = {}
             obj = i.getObject()
             if obj.portal_type == "Document":
-                if not obj.excludenextprev and not obj.id == "index.html":
-                    entry['linktitle'] = "%s : %s" %(obj.category, obj.title)
+                if not getattr(obj, 'excludenextprev', False) and not obj.id == "index.html":
+                    entry['linktitle'] = "%s : %s" % (
+                        getattr(obj, "category", "No Category"), obj.title)
                     entry['url'] = obj.absolute_url()
                     seq.append(entry)
         self.doclist = [seq[i:i+8] for i  in range(0, len(seq), 8)]
         self.ausgabe = self.context.aq_parent.Description()
+
 
 class PageFooter(api.Viewlet):
     grok.layer(IAnonymousLayer)
@@ -70,4 +74,4 @@ class PageFooter(api.Viewlet):
 
     def update(self):
         pathroot = self.context.absolute_url_path().split('/')[1]
-        self.rechteurl = '/%s/index.html/bildrechte' %pathroot
+        self.rechteurl = '/%s/index.html/bildrechte' % pathroot

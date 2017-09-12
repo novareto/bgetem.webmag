@@ -1,15 +1,22 @@
-<footer class="footer">
-  <div class="container">
-    <ul class="navbar-nav list-inline">
-      <li class="text-muted description_content">&copy; Deutsche Gesetzliche Unfallversicherung |</li>
-      <li class="text-muted"><a target="_blank" href="http://www.bgetem.de/de/wir-ueber-uns/impressum/index.jsp">Impressum</a> |</li>
-      <li class="text-muted"><a tal:attributes="href viewlet.rechteurl">Bildnachweise</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class=""><a target="_blank" href="http://www.bgetem.de">
-	<img style=padding-top:10px; class="img-responsive"
-	     src="/++resource++bgetem.webmag/assets/img/bgetem-logo.png"></a>
-      </li>
-    </ul>
+<footer>
+  <div class="col-lg-8 col-lg-offset-2 col-xs-12">
+    <div class="footer-wrapper">
+      <div class="footer-box">
+	<div class="col-md-3 col-sm-3 col-xs-4 footer-logo">
+          <img tal:attributes="src string:/++resource++bgetem.webmag/assets/img/logo_bgetem.png"
+	       title ="etem logo" alt="etem logo" class="img-responsive" />
+	</div>
+	<div class="col-md-9 col-sm-9 col-xs-12 footer-navi">
+          <div class="row">
+            <ul class="nav nav-pills">
+              <li><a href="#">Impressum</a></li>
+              <li><a href="#">Kontakt</a></li>
+              <li><a href="#">Datenschutz</a></li>
+              <li><a href="#">Bildnachweise</a></li>
+            </ul>
+          </div>
+	</div>
+      </div>
+    </div>
   </div>
 </footer>
