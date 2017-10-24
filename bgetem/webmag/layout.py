@@ -2,7 +2,7 @@
 # Copyright (c) 2007-2013 NovaReto GmbH
 # cklinger@novareto.de
 
-from .interfaces import IPageTop, IFooter
+from .interfaces import IPageTop, IFooter, INavigation, IAboveContent
 from .layer import IAnonymousLayer, IWebmag
 
 from five import grok
@@ -48,8 +48,13 @@ class NPWebMag(NextPrevious):
 api.templatedir('templates')
 
 
-class Footer(api.ViewletManager):
-    api.implements(IFooter)
+class NewsPaperLayout(Layout):
+    api.context(interface.Interface)
+    grok.layer(IAnonymousLayer)
+
+
+class Navigation(api.ViewletManager):
+    api.implements(INavigation)
     api.context(interface.Interface)
     grok.layer(IAnonymousLayer)
 
@@ -70,11 +75,16 @@ class PageTop(api.ViewletManager):
                  'previous': nextprev.getPreviousItem(self.context)}
       except:
          return {'next': None, 'previous': None}
-         
 
-    
 
-class NewsPaperLayout(Layout):
+class AboveContent(api.ViewletManager):
+    api.implements(IAboveContent)
+    api.context(interface.Interface)
+    grok.layer(IAnonymousLayer)
+
+      
+class Footer(api.ViewletManager):
+    api.implements(IFooter)
     api.context(interface.Interface)
     grok.layer(IAnonymousLayer)
 

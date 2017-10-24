@@ -1,0 +1,34 @@
+<!-- example xy grid -->
+<div class="" style="">
+  <div class="grid-x grid-margin-x text-center">
+    <div class="cell small-12">
+      <div class="card-image">
+  	<img src="/++resource++bgetem.webmag/assets/img/campaign-01.jpg" />
+      </div>
+      <div class="cell medium-6 medium-offset-3 small-12 c-article">
+        <h6 class="c-article__catchword"
+	    >383 tödliche Fahrradunfälle in 2015</h6>
+        <h1 class="c-article__title"
+	    >Für andere mitdenken, vorausschauend fahren!</h1>
+        <p class="c-article__teaser">
+	  Radfahrer zahlen bei Verkehrsunfällen mit ihren Knochen oder
+	  sogar dem Leben. Darum ist konzentriertes, vorausschauendes
+	  Fahren ohne Ablenkungen, wie Handy oder Musik, extrem
+	  wichtig. Defensives Fahren – mit Helm und gut sichtbar –
+	  dient dem Selbstschutz, da man gegenüber Kraftfahrzeugen
+	  immer der Schwächere ist.
+	</p>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- example float grid -->
+<div class="expanded row">
+  <!--
+      <div class="small-4 large-3 columns">cell</div>
+      <div class="small-4 large-3 columns">cell</div>
+      <div class="small-4 large-3 columns">cell</div>
+      <div class="small-2 large-3 columns">cell</div>
+  -->
+</div>

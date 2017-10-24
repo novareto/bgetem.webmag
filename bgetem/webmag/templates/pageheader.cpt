@@ -1,53 +1,38 @@
-  <header>
-    <nav class="navbar">
-      <div class="wrapper-header">
-        <div id="myNav" class="overlay">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-          <div class="overlay-content">
-            <a alt="" title="" href="index.html">Archiv</a>
-            <a alt="" title="" href="index.html">Inhalt</a>
-            <a alt="" title="" href="index-grid-article.html">Weiter</a>
-            <a alt="" title="" href="www.bgetem.de"><img class="im-menu"
-		 tal:attributes="src string:/++resource++bgetem.webmag/assets/img/Logo-BG-ETEM-negativ.png" alt="+" /></a>
-          </div>
-        </div>
-
-        <span class="openBtn" style="font-size:30px;cursor:pointer;float:right;margin-right: 33px;margin-top:15px;border: 1px solid rgb(0,74,149); color: rgb(0,74,149);padding:10px;font-size: 24px; line-height:20px;" onclick="openNav()">&#9776;
-        </span>
+<header id="header" class="topbar-sticky-shrink-header">
+  <div class="grid-x grid-padding-x">
+    <div class="small-5 medium-6 cell">
+      <div class="card-image" style="vertical-align: bottom;">
+        <a href="index.html">
+	  <img src="/++resource++bgetem.webmag/assets/img/logo_etem_magazin.png" />
+	</a>
       </div>
-
-      <div class="col-lg-8 col-lg-offset-2">
-        <div class="col-sm-2 col-xs-3 col-md-1">
-          <ul class="list-inline header-logo2">
-            <li><a href="index.html"><img class="main-logo-left"
-	             tal:attributes="src string:/++resource++bgetem.webmag/assets/img/logo_etem_magazin.png"
-	             alt="Homepage – bgetem" title="Homepage – bgetem" /></a></li>
-          </ul>
-        </div>
-        <div class="col-md-5 col-md-offset-2 col-sm-4 col-sm-offset-2 ivz-navi">
-          <ul class="list-inline collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <li><a class="btn btn-primary" alt="" title="" href="index.html">Archiv</a></li>
-            <li><a class="btn btn-primary" alt="" title="" href="index.html">Inhalt</a></li>
-            <li><a class="btn btn-primary" alt="" title="" href="index-grid-article.html">Weiter</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-2 col-sm-offset-2 col-xs-2 col-md-1 col-md-offset-3">
-          <ul class="list-inline header-logo">
-            <li><a href="www.bgetem.de"><img class="main-logo"
-	    tal:attributes="src string:/++resource++bgetem.webmag/assets/img/logo_bgetem.png"
-	    alt="Homepage – bgetem" title="Homepage – bgetem" /></a></li>
-          </ul>
-        </div>
-
+    </div>
+    <div class="small-5 medium-6">
+      <div class="card-image" style="text-align:right;">
+        <img class="logo_bgetem" src="/++resource++bgetem.webmag/assets/img/logo_bgetem.png" />
       </div>
-    </nav>         
-    <script>
-      function openNav() {
-        document.getElementById("myNav").style.width = "100%";
-      }
+    </div>
+  </div>
+</header>
 
-      function closeNav() {
-        document.getElementById("myNav").style.width = "0%";
-      }
-    </script>
-  </header>
+<div data-sticky-container>
+  <div data-sticky data-margin-top='0' data-top-anchor="header:bottom" data-btm-anchor="content:bottom">
+    <div class="top-bar topbar-sticky-shrink">		
+      <div class="title-bar-left c-nav">
+	<button class="menu-icon" type="button" data-open="offCanvas"></button>
+	<h5>
+	  <span class="title-bar-title c-nav--title">
+	    etem - Magazin für Prävention,
+	    Rehabilitation und Entschädigung
+	  </span>
+	</h5>
+      </div>
+      <div class="top-bar-right">
+	<ul class="menu">
+	  <li><input type="search" placeholder="Search"></li>
+	  <li><button type="button" class="button">Suche</button></li>
+	</ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,22 +1,24 @@
-<footer>
-  <div class="col-lg-8 col-lg-offset-2 col-xs-12">
-    <div class="footer-wrapper">
-      <div class="footer-box">
-	<div class="col-md-3 col-sm-3 col-xs-4 footer-logo">
-          <img tal:attributes="src string:/++resource++bgetem.webmag/assets/img/logo_bgetem.png"
-	       title ="etem logo" alt="etem logo" class="img-responsive" />
-	</div>
-	<div class="col-md-9 col-sm-9 col-xs-12 footer-navi">
-          <div class="row">
-            <ul class="nav nav-pills">
-              <li><a href="#">Impressum</a></li>
-              <li><a href="#">Kontakt</a></li>
-              <li><a href="#">Datenschutz</a></li>
-              <li><a href="#">Bildnachweise</a></li>
-            </ul>
-          </div>
-	</div>
+<!-- example xy grid -->
+<div class="" style="background: #555555;">
+  <div class="grid-x grid-margin-x text-center">
+    <div class="cell small-12">
+      <div class="card-image">
+  	<img src="/++resource++bgetem.webmag/assets/img/Newsletter.png" />
       </div>
     </div>
   </div>
-</footer>
+</div>
+
+<div class="" style="background: #004994;">
+  <div class="grid-x grid-margin-x text-center">
+    <div class="cell small-12">
+      <div class="card-image">
+  	<img src="/++resource++bgetem.webmag/assets/img/Footer.png" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="expanded row">
+  
+</div>

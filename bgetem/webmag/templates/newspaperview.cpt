@@ -1,109 +1,153 @@
-<section id="main-topic" class="main-topic">
-  <article>
-    <div class="flex-lg-8 flex-lg-offset-2">
-      <div class="row row-margin between-sm">
-	<div class="flex-sm-3 sidebar-wrapper">
-          <div class="sidebar-module">
-            <h3 class="media-title">Magazin für Prävention, Rehabilitation und Entschädigung</h3>
-          </div>
 
-          <div class="sidebar-module">
-            <div class="issue">Ausgabe August 2016</div>
-          </div>
+   <!-- THEMEN --> 
 
-          <div class="sidebar-module">
-            <div class="flex-lg-12 flex-md-12 flex-xs-12 input-group">
-              <div class="inner-addon left-addon">
-		<i class="glyphicon glyphicon-search"></i>
-		<input type="text" class="form-control" placeholder="Suchbegriff eingeben"  aria-describedby="basic-addon2">
-              </div>
-	      
-            </div>
-          </div>
-	  
-          <div class="sidebar-module">
-            <div class="card-blue">
-              <div class="mediaBlue">  
-                <div class="media-body">
-		  <div tal:define="eventfolder string:termine"
-		       tal:replace="structure shard:eventlist" />
-              	</div>
-              </div>
-            </div>
-          </div>
-	</div>
+   <div class="grid-container grid-container-padded">
+    <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium" id="test-eq">
 
-        <div class="flex-sm-9 flex-xs-12 main-topic">
-          <div tal:define="mystory string:titelstory-1" tal:replace="structure shard:story"> </div>
+      <div class="cell small-12 c-cat">
+	<h1 class="c-cat--headline">THEMEN</h1>
+      </div>
+      <div class="cell medium-6 large-4 small-12">              
+        <div class="card" data-equalizer-watch>
+        <a href="" class="">
+          <!-- wrap .card-image needed for bug IE11 flexbug -->
+          <div class="card-image">
+            <img src="assets/img/card-default-01.jpg">
+          </div>
+          <div class="card-section">
+            <p class="card-section--cat">Kompakt</p>
+            <h4>Hilfe für Unternehmer</h4>
+            <p>Unternehmerinnen und Unternehmer finden Informationen zur Sozialversicherung auf dem neuen Informationsportal der deut-schen Sozialversicherer.</p>
+          </div>
+          </a>
         </div>
+      </div>
+      <div class="cell medium-6 large-4 small-12">              
+        <div class="card" data-equalizer-watch>
+        <a href="" class="">
+          <!-- wrap .card-image needed for bug IE11 flexbug -->
+          <div class="card-image">
+            <img src="assets/img/card-default-01.jpg">
+          </div>
 
+          <div class="card-section">
+            <p class="card-section--cat">betrieb & praxis</p>
+            <h4>Erste Hilfe fern der Küste</h4>
+            <p>Die neue Informations-schrift „Erste Hilfe in Offshore-Windparks“ bietet praktische Hilfen zur Bewältigung von Notfällen..</p>
+          </div>
+          </a>
+        </div>
+      </div>
+      <div class="cell medium-6 large-4 small-12">              
+        <div class="card card--green" data-equalizer-watch>
+          
+          <div class="card-section">
+           <h4>Termine</h4>
+          <div class="card--date"><i class="fa fa-calendar" aria-hidden="true"></i> 20.-21.06.2017 | <i class="fa fa-map-marker" aria-hidden="true"></i> Düsseldorf</div>
+           <div class="">
+            <h6>Fachtagung Textil und Mode</h6>
+          </div>
+          <hr>
+          <div class="card--date"><i class="fa fa-calendar" aria-hidden="true"></i> 03.-06.09.2017 | <i class="fa fa-map-marker" aria-hidden="true"></i> Singapur</div>
+          <div class="">
+            <h6>XXI. Weltkongress für Sicherheit und Gesundheit bei der Arbeit / Internationales Media Festival für Prävention (IMFP)</h6>
+          </div>
+          <hr>
+          <div class="card--date"><i class="fa fa-calendar" aria-hidden="true"></i> 03.-06.09.2017 | <i class="fa fa-map-marker" aria-hidden="true"></i> Singapur</div>
+          <div class="">
+            <h6>XXI. Weltkongress für Sicherheit und Gesundheit bei der Arbeit / Internationales Media Festival für Prävention (IMFP)</h6>
+          </div>
+          <hr>
+          <div class="text-right"><a class="card--link" href="www.bgetem.de"><i class="fa fa-angle-right" aria-hidden="true"></i> weitere termine</a></div>
+        </div>
       </div>
     </div>
-  </article>
-</section>
 
-
-<section id="cards" class="mod-cards">
-  <article>
-    <div class="flex-lg-8 flex-lg-offset-2 cards-wrapper">
-
-      <div class="row row-margin between-sm">
-        <div class="flex-xs-12 flex-sm-3 cards">
-	  <div tal:define="document string:editorial" tal:replace="structure shard:richtext"> </div>
+        <div class="cell medium-6 large-4 small-12">
+          <div class="card card--secondary" data-equalizer-watch>
+          <a href="" class="">
+            <div class="card-section">
+              <p class="card-section--catwhite">kompakt</p>
+              <h1>Zahlen, Fakten, Angebote</h1>
+              <h4 class="card-section--catwhite">Meldungen und Meinungen.</h4>
+            </div>
+         </a>
+          </div>
         </div>
-        <div class="flex-xs-12 flex-sm-3 cards">
-	  <div tal:define="document string:sicherheit-ganz-einfach" tal:replace="structure shard:document"> </div>
-        </div>
-        <div class="flex-xs-12 flex-sm-3 cards">
-	  <div tal:define="document string:neuer-schulungs-lkw" tal:replace="structure shard:richtext"> </div>
-        </div>
-        <div class="flex-xs-12 flex-sm-3 cards">
-	  <div tal:define="document string:arbeitsschutz-im-kraftwerk" tal:replace="structure shard:document"> </div>
-        </div>
-      </div>
 
-      <div class="clearfix visible-xs-block"></div>
+        <div class="cell medium-6 large-8 small-12">
+          <div class="card" data-equalizer-watch>
+          <a href="" class="">
+            <!-- wrap .card-image needed for bug IE11 flexbug -->
+            <div class="card-image">
+              <img src="assets/img/card-default-01.jpg">
+            </div>
 
-      <div class="row row-margin between-sm">
-        <div class="flex-xs-12 flex-sm-3 cards">
-          <div class="card-blue">
-            <a class="description-content" href="article-01.html">
-              <div class="media-body">
-              	<p class="small-blue-section">Service</p>
-              </div>
-              <!-- Optional: clear the XS cols if their content doesn't match in height -->
-              <div class="mediaBlue">  
-                <div class="media-body">
-                  <h3 class="media-heading-blue">Berichte, Infos, Hilfsmittel</h3>
-                  <p class="small-blue">Mitteilungen und Wissenswertess</p>
-                </div>
-              </div>
+            <div class="card-section">
+              <p class="card-section--cat">mensch & arbeit</p>
+              <h4>Sicherheit im Straßenverkehr</h4>
+              <p>Weniger Tote, aber unverändert viele Verletzte sind im Straßenverkehr zu be-klagen – vor allem Motor-rad- und Fahrradfahrer. Die BG ETEM bietet ihnen und Arbeitgebern Hilfe an.</p>
+            </div>
             </a>
           </div>
         </div>
-        <div class="flex-xs-12 flex-sm-3 cards">
-	  <div tal:define="document string:kurzere-wege-im-norden" tal:replace="structure shard:richtext"> </div>
-        </div>
-        <div class="flex-xs-12 flex-sm-6 cards">
-          <div tal:define="document string:sauber-heisst-sicher" tal:replace="structure shard:document"> </div>
-        </div>
-      </div>
 
-      <div class="clearfix visible-xs-block"></div>
+        <div class="cell medium-6 large-4 small-12">
 
-      <div class="row row-margin between-sm">
-        <div class="flex-xs-12 flex-sm-6 cards">
-          <div tal:define="document string:handlungshilfe-bei-hochspannung" tal:replace="structure shard:document"> </div>
-        </div>
-        <div class="flex-xs-12 flex-sm-3 cards">
-          <div tal:define="document string:bg-etem-gewinnt-filmpreis" tal:replace="structure shard:document"> </div>
-        </div>
-        <div class="flex-xs-12 flex-sm-3 cards">
-          <div tal:define="document string:magazin-fur-pravention-startet-neu" tal:replace="structure shard:document"> </div>
-        </div>
-      </div>
+          <div class="card card--campagne" data-equalizer-watch>
+          <a href="" class="">
+            <!-- wrap .card-image needed for bug IE11 flexbug -->
+            <div class="card-image">
+              <img src="assets/img/card-kampagne.jpg">
+            </div>
 
-     
-    </div>
-  </article>
-</section>
+            <div class="card-section">
+               <p class="card-section--catwhite">Kultur der Prävention</p>
+              <h1 class="card-section--catwhite">Respekt im Umgang mit anderen!</h1>
+              <h4 class="card-section--catwhite">Dulden Sie kein Mobbing im Kollegenkreis!</h4>
+            </div>
+            </a>
+          </div>
+        </div>
+        <div class="cell medium-6 large-4 small-12">
+          <div class="card" data-equalizer-watch>
+            <a href="" class="">
+            <!-- wrap .card-image needed for bug IE11 flexbug -->
+            <div class="card-image">
+              <img src="assets/img/card-05.jpg">
+            </div>
+
+            <div class="card-section">
+               <p class="card-section--cat">mensch & arbeit</p>
+              <h4>This is a card.</h4>
+              <p>It has an easy to override visual style, and is appropriately subdued.</p>
+            </div>
+          </a>
+          </div>
+        </div>
+        <div class="cell medium-6 large-4 small-12">
+          <div class="card" data-equalizer-watch>
+          <a href="" class="">
+            <!-- wrap .card-image needed for bug IE11 flexbug -->
+            <div class="card-image">
+              <img src="assets/img/plakat.jpg">
+            </div>
+
+            <div class="card-section">
+              <h4>Kultur der Prävention.</h4>
+              <div class="text-right" style="padding-right: 1rem;"><p><a class="card--link" href="single-page.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Weiterlesen</a></p></div>
+            </div>
+          </a>
+          </div>
+        </div>
+
+      </div><!-- grid-x -->
+    </div><!-- grid container -->
+
+<div class="grid-container">
+  <div class="grid-x grid-margin-x">
+    <div class="small-12 cell text-center">
+     <p class=""> <button class="c-button c-button--wide">Mehr anzeigen</button></p>
+   </div>
+ </div> 
+</div>

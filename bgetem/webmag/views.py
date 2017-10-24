@@ -1,28 +1,58 @@
 # -*- coding: utf-8 -*-
 
-from uvc.api import api
-from five import grok
-from zope.interface import Interface
-from .layout import BSPage as Page
-from .layer import IAnonymousLayer
-from uvc.shards.interface import IShardedView
-from uvc.shards.components import ShardsAsViews
 from Products.CMFCore.utils import getToolByName
+from five import grok
+from plone import api as ploneapi
+from plone.app.contenttypes.interfaces import IDocument
+from plone.app.layout.globals.interfaces import IViewView
 from plone.memoize import ram
 from time import time
-from plone import api as ploneapi
+from uvc.api import api
+from uvc.shards.components import ShardsAsViews
+from uvc.shards.interface import IShardedView
+from zope.interface import Interface
+
+from .layout import BSPage as Page
+from .layer import IAnonymousLayer
 
 
 api.templatedir('templates')
+
+
+class SimpleNewspaperView(api.View):
+    api.name('newspaperview')
+    api.context(Interface)
+
+
+class NewspaperView(Page):
+    grok.implements(IViewView)
+    api.context(Interface)
+    grok.layer(IAnonymousLayer)
+
+
+class ContentPage(Page):
+    grok.context(IDocument)
+    grok.name('document_view')
+    grok.layer(IAnonymousLayer)
+
+    def update(self):
+        localurl = self.context.absolute_url()
+        self.image = '%s/@@images/newsimage' % localurl
+        self.lineclass = 'title-border line-%s' % getattr(
+            self.context, 'colorcode', 'grey')
+        self.quoted = urllib.quote_plus(localurl)
+        self.titlequoted = urllib.quote_plus(self.context.Title())
 
 
 class Titelview(Page):
     api.context(Interface)
     grok.layer(IAnonymousLayer)
 
+
 class MyTitelview(Page):
     api.context(Interface)
     grok.layer(IAnonymousLayer)
+
 
 class KompaktTitelview(Page):
     api.context(Interface)
