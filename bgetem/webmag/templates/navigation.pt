@@ -1,0 +1,37 @@
+<!-- Menu -->
+<ul class="vertical menu drilldown"
+    data-drilldown data-auto-height="true" data-animate-height="true">
+  <li>
+    <a href="collection-all-article.html">
+      <i class="fi-list"></i>
+      <span>Kompakt</span>
+    </a>
+    <ul class="menu vertical nested">
+      <li><a href="single-page.html">Zahlen, Fakten, Angebote</a></li>
+    </ul>
+  </li>
+
+  <li>
+    <a href="collection-all-article.html">
+      <i class="fi-list"></i>
+      <span>mensch & arbeit</span>
+    </a>
+    <ul class="menu vertical nested">
+      <li><a href="single-page.html"
+       >Sicherheit im Straßenverkehr Risiko auf zwei Rädern</a></li>
+      <li><a href="single-page.html"
+       >Ladungssicherung Transport mit Verantwortung</a></li>
+      <li><a href="single-page.html"
+       >Sekundenschlaf Hallo? Wach?</a></li>
+      <li><a href="single-page.html"
+       >Künstliche optische Strahlung</a></li>
+      <li><a href="collection-all-article.html"
+       >Alle Artikel</a></li>
+    </ul>
+  </li>
+</ul>
+
+<ul class="vertical menu additional">
+  <li><a href="impressum.html"><span>Impressum</span></a></li>
+  <li><a href="collection-all-article.html"><span>Archive</span></a></li>
+</ul>
