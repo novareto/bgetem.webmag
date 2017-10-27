@@ -3,12 +3,10 @@
 # cklinger@novareto.de
 
 from .interfaces import IPageTop, IFooter, INavigation, IAboveContent
-from .layer import IAnonymousLayer, IWebmag
 
 from five import grok
 from grokcore.layout import Layout
 from plone import api as ploneapi
-from plone.app.layout.nextprevious.interfaces import INextPreviousProvider
 from uvc.api import api
 from uvc.shards.components import ShardsAsViews
 from uvc.shards.interface import IShardedView
@@ -16,11 +14,15 @@ from zope import interface
 from zope.component import getMultiAdapter
 from plone.app.folder.nextprevious import NextPrevious
 from Products.CMFCore.interfaces import IContentish
+from nva.magazinfolder.interfaces import IAnonymousLayer
+
+
+api.templatedir('templates')
 
 
 class NPWebMag(NextPrevious):
 
-   def getData(self, obj):
+    def getData(self, obj):
         """ return the expected mapping, see `INextPreviousProvider` """
         gNN = getattr(obj, 'excludenextprev', False)
         if gNN:
@@ -42,10 +44,7 @@ class NPWebMag(NextPrevious):
             title=obj.Title(),
             description=obj.Description(),
             portal_type=ptype
-        ) 
-
-
-api.templatedir('templates')
+        )
 
 
 class NewsPaperLayout(Layout):
@@ -60,21 +59,19 @@ class Navigation(api.ViewletManager):
 
 
 class PageTop(api.ViewletManager):
-   api.implements(IPageTop)
-   api.context(interface.Interface)
-   grok.layer(IAnonymousLayer)
+    api.implements(IPageTop)
+    api.context(interface.Interface)
+    grok.layer(IAnonymousLayer)
 
-   def nextprevious(self):
-      portal = ploneapi.portal.get()
-      pathroot = self.context.absolute_url_path().split('/')[1]
-      #nextprev = INextPreviousProvider(portal['bgetem-kompakt-aktuell'])
-      #nextprev = NPWebMag(portal['bgetem-kompakt-aktuell'])
-      try:
-         nextprev = NPWebMag(portal[pathroot])
-         return {'next': nextprev.getNextItem(self.context),
-                 'previous': nextprev.getPreviousItem(self.context)}
-      except:
-         return {'next': None, 'previous': None}
+    def nextprevious(self):
+        portal = ploneapi.portal.get()
+        pathroot = self.context.absolute_url_path().split('/')[1]
+        try:  # BBB
+            nextprev = NPWebMag(portal[pathroot])
+            return {'next': nextprev.getNextItem(self.context),
+                    'previous': nextprev.getPreviousItem(self.context)}
+        except:
+            return {'next': None, 'previous': None}
 
 
 class AboveContent(api.ViewletManager):
@@ -82,7 +79,7 @@ class AboveContent(api.ViewletManager):
     api.context(interface.Interface)
     grok.layer(IAnonymousLayer)
 
-      
+
 class Footer(api.ViewletManager):
     api.implements(IFooter)
     api.context(interface.Interface)

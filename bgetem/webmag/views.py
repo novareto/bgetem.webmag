@@ -13,7 +13,7 @@ from uvc.shards.interface import IShardedView
 from zope.interface import Interface
 
 from .layout import BSPage as Page
-from .layer import IAnonymousLayer
+from nva.magazinfolder.interfaces import IAnonymousLayer
 
 
 api.templatedir('templates')
