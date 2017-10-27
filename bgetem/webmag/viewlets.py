@@ -14,7 +14,7 @@ from zope.interface import Interface
 
 from .views import NewspaperView
 from .interfaces import IPageTop, IFooter, INavigation, IAboveContent
-from .layer import IAnonymousLayer
+from nva.magazinfolder.interfaces import IAnonymousLayer
 
 
 api.templatedir('templates')
@@ -55,13 +55,21 @@ class EtemPlus(api.Viewlet):
     grok.viewletmanager(IAboveContent)
     grok.context(Interface)
     grok.view(NewspaperView)
+    dokumente = []
 
-        
+    def update(self):
+        self.dokumente = [x for x in self.context['etem'].values()]
+
+
 class Carousel(api.Viewlet):
     grok.order(20)
     grok.viewletmanager(IPageTop)
     grok.context(Interface)
-        
+    bilder = []
+
+    def update(self):
+        self.bilder = [x for x in self.context['titelstories'].values()]
+
 
 class Campaign(api.Viewlet):
     grok.order(10)

@@ -7,13 +7,13 @@
   <browser:resourceDirectory name="bgetem.webmag" directory="static" />
   <grok:grok package="." />
 
-
+<!--
   <subscriber
       for="bgetem.webmag.layer.IWebmag
            zope.traversing.interfaces.IBeforeTraverseEvent"
       handler=".layer.switch_skin"
       />
-
+-->
   <include package="plone.app.contentmenu" /> 
   <browser:menuItem
       for="plone.app.contenttypes.interfaces.IFolder"
@@ -24,7 +24,8 @@
       />
 
   <five:registerPackage package="." />
+<!--
   <interface
       interface="bgetem.webmag.layer.IWebmag" />
-
+-->
 </configure>

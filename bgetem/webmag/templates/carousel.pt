@@ -12,54 +12,16 @@
       </button>
     </div>
     <ul class="orbit-container">
-      <li class="is-active orbit-slide">
+      <li class="is-active orbit-slide" tal:repeat="obj viewlet/bilder">
         <figure class="orbit-figure">
-          <img class="orbit-image" alt="Space"
-	       src="/++resource++bgetem.webmag/assets/img/carousel-01.jpg" />
+          <img class="orbit-image" alt="Space" tal:attributes="src string:${obj/absolute_url}/@@images/newsimage" src="/++resource++bgetem.webmag/assets/img/carousel-01.jpg" />
           <figcaption class="orbit-caption medium-3">
-	    <h3>Staub am Arbeitsplatz – Die unterschätzte Gefahr.</h3>
-	    <br/>
+            <h3 tal:content="obj/title"></h3>
+            <br/>
             <button class="c-button c-button--wide c-button--slider"
-		    style="margin-top: 30px;">Weiterlesen</button>
+              style="margin-top: 30px;">Weiterlesen</button>
           </figcaption>
         </figure>
-      </li>
-      <li class="orbit-slide">
-        <figure class="orbit-figure">
-          <img class="orbit-image" alt="Space"
-	       src="/++resource++bgetem.webmag/assets/img/carousel-02.jpg" />
-          <figcaption class="orbit-caption medium-3">
-	    <h3>Mit dem Fahrrad zur Arbeit – Mit Helm? Aber sicher!</h3>
-	    <br/>
-	    <button class="c-button c-button--wide c-button--slider"
-		    style="margin-top: 30px;">Weiterlesen</button>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="orbit-slide">
-        <figure class="orbit-figure">
-          <img class="orbit-image" alt="Space"
-	       src="/++resource++bgetem.webmag/assets/img/carousel-03.jpg" />
-	  <figcaption class="orbit-caption medium-3">
-	    <h3>Arbeiten 4.0 – Kollege Roboter erobert die Arbeitswelt</h3>
-	    <br/>
-	    <button style="margin-top: 30px;"
-		    class="c-button c-button--wide c-button--slider"
-		    >Weiterlesen</button>
-	  </figcaption>
-        </figure>
-      </li>
-      <li class="is-active orbit-slide">
-        <figure class="orbit-figure">
-	  <img class="orbit-image" alt="Space"
-	       src="/++resource++bgetem.webmag/assets/img/carousel-01.jpg" />
-	  <figcaption class="orbit-caption medium-3">
-	    <h3>Arbeiten 4.0 – Kollege Roboter erobert die Arbeitswelt</h3>
-	    <br/>
-	    <button class="c-button c-button--wide c-button--slider"
-		    style="margin-top: 30px;">Weiterlesen</button>
-	  </figcaption>
-	</figure>
       </li>
     </ul>
   </div>

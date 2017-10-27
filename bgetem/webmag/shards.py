@@ -2,8 +2,8 @@
 # Copyright (c) 2007-2013 NovaReto GmbH
 # cklinger@novareto.de
 
-import tweepy
-from tweepy import OAuthHandler
+#import tweepy
+#from tweepy import OAuthHandler
 
 from plone import api as papi
 from uvc.api import api
