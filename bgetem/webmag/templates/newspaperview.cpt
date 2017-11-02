@@ -1,153 +1,47 @@
+<div class="grid-container grid-container-padded">
+  <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium" id="test-eq">
 
-   <!-- THEMEN --> 
+    <div class="cell small-12 c-cat">
+      <h1 class="c-cat--headline">THEMEN</h1>
+    </div>
+    <div class="cell medium-6 large-4 small-12">              
+      <div tal:replace="structure shard: document" tal:define="document string:hilfe-fur-unternehmer"> </div>
+    </div>
+    <div class="cell medium-6 large-4 small-12">              
+      <div tal:replace="structure shard: document" tal:define="document string:erste-hilfe-fern-der-kuste"> </div>
+    </div>
+    <div class="cell medium-6 large-4 small-12">              
+      <div class="card card--green" data-equalizer-watch>
+        <div tal:replace="structure shard: eventlist" tal:define="eventfolder string:eventfolder"> </div>
 
-   <div class="grid-container grid-container-padded">
-    <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium" id="test-eq">
-
-      <div class="cell small-12 c-cat">
-	<h1 class="c-cat--headline">THEMEN</h1>
-      </div>
-      <div class="cell medium-6 large-4 small-12">              
-        <div class="card" data-equalizer-watch>
-        <a href="" class="">
-          <!-- wrap .card-image needed for bug IE11 flexbug -->
-          <div class="card-image">
-            <img src="assets/img/card-default-01.jpg">
-          </div>
-          <div class="card-section">
-            <p class="card-section--cat">Kompakt</p>
-            <h4>Hilfe für Unternehmer</h4>
-            <p>Unternehmerinnen und Unternehmer finden Informationen zur Sozialversicherung auf dem neuen Informationsportal der deut-schen Sozialversicherer.</p>
-          </div>
-          </a>
-        </div>
-      </div>
-      <div class="cell medium-6 large-4 small-12">              
-        <div class="card" data-equalizer-watch>
-        <a href="" class="">
-          <!-- wrap .card-image needed for bug IE11 flexbug -->
-          <div class="card-image">
-            <img src="assets/img/card-default-01.jpg">
-          </div>
-
-          <div class="card-section">
-            <p class="card-section--cat">betrieb & praxis</p>
-            <h4>Erste Hilfe fern der Küste</h4>
-            <p>Die neue Informations-schrift „Erste Hilfe in Offshore-Windparks“ bietet praktische Hilfen zur Bewältigung von Notfällen..</p>
-          </div>
-          </a>
-        </div>
-      </div>
-      <div class="cell medium-6 large-4 small-12">              
-        <div class="card card--green" data-equalizer-watch>
-          
-          <div class="card-section">
-           <h4>Termine</h4>
-          <div class="card--date"><i class="fa fa-calendar" aria-hidden="true"></i> 20.-21.06.2017 | <i class="fa fa-map-marker" aria-hidden="true"></i> Düsseldorf</div>
-           <div class="">
-            <h6>Fachtagung Textil und Mode</h6>
-          </div>
-          <hr>
-          <div class="card--date"><i class="fa fa-calendar" aria-hidden="true"></i> 03.-06.09.2017 | <i class="fa fa-map-marker" aria-hidden="true"></i> Singapur</div>
-          <div class="">
-            <h6>XXI. Weltkongress für Sicherheit und Gesundheit bei der Arbeit / Internationales Media Festival für Prävention (IMFP)</h6>
-          </div>
-          <hr>
-          <div class="card--date"><i class="fa fa-calendar" aria-hidden="true"></i> 03.-06.09.2017 | <i class="fa fa-map-marker" aria-hidden="true"></i> Singapur</div>
-          <div class="">
-            <h6>XXI. Weltkongress für Sicherheit und Gesundheit bei der Arbeit / Internationales Media Festival für Prävention (IMFP)</h6>
-          </div>
-          <hr>
-          <div class="text-right"><a class="card--link" href="www.bgetem.de"><i class="fa fa-angle-right" aria-hidden="true"></i> weitere termine</a></div>
-        </div>
       </div>
     </div>
 
-        <div class="cell medium-6 large-4 small-12">
-          <div class="card card--secondary" data-equalizer-watch>
-          <a href="" class="">
-            <div class="card-section">
-              <p class="card-section--catwhite">kompakt</p>
-              <h1>Zahlen, Fakten, Angebote</h1>
-              <h4 class="card-section--catwhite">Meldungen und Meinungen.</h4>
-            </div>
-         </a>
-          </div>
-        </div>
+    <div class="cell medium-6 large-4 small-12">
+      <div tal:replace="structure shard: richtext" tal:define="document string:kompakt"> </div>
+    </div>
 
-        <div class="cell medium-6 large-8 small-12">
-          <div class="card" data-equalizer-watch>
-          <a href="" class="">
-            <!-- wrap .card-image needed for bug IE11 flexbug -->
-            <div class="card-image">
-              <img src="assets/img/card-default-01.jpg">
-            </div>
+    <div class="cell medium-6 large-8 small-12">
+      <div tal:replace="structure shard: document" tal:define="document string:sicherheit-im-strassenverkehr"> </div>
+    </div>
 
-            <div class="card-section">
-              <p class="card-section--cat">mensch & arbeit</p>
-              <h4>Sicherheit im Straßenverkehr</h4>
-              <p>Weniger Tote, aber unverändert viele Verletzte sind im Straßenverkehr zu be-klagen – vor allem Motor-rad- und Fahrradfahrer. Die BG ETEM bietet ihnen und Arbeitgebern Hilfe an.</p>
-            </div>
-            </a>
-          </div>
-        </div>
+    <div class="cell medium-6 large-4 small-12">
+      <div tal:replace="structure shard: document" tal:define="document string:respekt-im-umgang-mit-anderen"> </div>
+    </div>
+    <div class="cell medium-6 large-4 small-12">
+      <div tal:replace="structure shard: document" tal:define="document string:mensch-arbeit"> </div>
+    </div>
+    <div class="cell medium-6 large-4 small-12">
+      <div tal:replace="structure shard: document" tal:define="document string:kultur-der-praevention"> </div>
+    </div>
 
-        <div class="cell medium-6 large-4 small-12">
-
-          <div class="card card--campagne" data-equalizer-watch>
-          <a href="" class="">
-            <!-- wrap .card-image needed for bug IE11 flexbug -->
-            <div class="card-image">
-              <img src="assets/img/card-kampagne.jpg">
-            </div>
-
-            <div class="card-section">
-               <p class="card-section--catwhite">Kultur der Prävention</p>
-              <h1 class="card-section--catwhite">Respekt im Umgang mit anderen!</h1>
-              <h4 class="card-section--catwhite">Dulden Sie kein Mobbing im Kollegenkreis!</h4>
-            </div>
-            </a>
-          </div>
-        </div>
-        <div class="cell medium-6 large-4 small-12">
-          <div class="card" data-equalizer-watch>
-            <a href="" class="">
-            <!-- wrap .card-image needed for bug IE11 flexbug -->
-            <div class="card-image">
-              <img src="assets/img/card-05.jpg">
-            </div>
-
-            <div class="card-section">
-               <p class="card-section--cat">mensch & arbeit</p>
-              <h4>This is a card.</h4>
-              <p>It has an easy to override visual style, and is appropriately subdued.</p>
-            </div>
-          </a>
-          </div>
-        </div>
-        <div class="cell medium-6 large-4 small-12">
-          <div class="card" data-equalizer-watch>
-          <a href="" class="">
-            <!-- wrap .card-image needed for bug IE11 flexbug -->
-            <div class="card-image">
-              <img src="assets/img/plakat.jpg">
-            </div>
-
-            <div class="card-section">
-              <h4>Kultur der Prävention.</h4>
-              <div class="text-right" style="padding-right: 1rem;"><p><a class="card--link" href="single-page.html"><i class="fa fa-angle-right" aria-hidden="true"></i> Weiterlesen</a></p></div>
-            </div>
-          </a>
-          </div>
-        </div>
-
-      </div><!-- grid-x -->
-    </div><!-- grid container -->
+  </div><!-- grid-x -->
+</div><!-- grid container -->
 
 <div class="grid-container">
   <div class="grid-x grid-margin-x">
     <div class="small-12 cell text-center">
-     <p class=""> <button class="c-button c-button--wide">Mehr anzeigen</button></p>
-   </div>
- </div> 
+      <p class=""> <button class="c-button c-button--wide">Mehr anzeigen</button></p>
+    </div>
+  </div> 
 </div>

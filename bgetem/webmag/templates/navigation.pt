@@ -1,32 +1,11 @@
-<!-- Menu -->
-<ul class="vertical menu drilldown"
-    data-drilldown data-auto-height="true" data-animate-height="true">
-  <li>
+<ul class="vertical menu drilldown" tal:define="navitems viewlet/navitems" data-drilldown data-auto-height="true" data-animate-height="true">
+  <li tal:repeat="obj navitems">
     <a href="collection-all-article.html">
       <i class="fi-list"></i>
-      <span>Kompakt</span>
+      <span tal:content="obj"></span>
     </a>
     <ul class="menu vertical nested">
-      <li><a href="single-page.html">Zahlen, Fakten, Angebote</a></li>
-    </ul>
-  </li>
-
-  <li>
-    <a href="collection-all-article.html">
-      <i class="fi-list"></i>
-      <span>mensch & arbeit</span>
-    </a>
-    <ul class="menu vertical nested">
-      <li><a href="single-page.html"
-       >Sicherheit im Straßenverkehr Risiko auf zwei Rädern</a></li>
-      <li><a href="single-page.html"
-       >Ladungssicherung Transport mit Verantwortung</a></li>
-      <li><a href="single-page.html"
-       >Sekundenschlaf Hallo? Wach?</a></li>
-      <li><a href="single-page.html"
-       >Künstliche optische Strahlung</a></li>
-      <li><a href="collection-all-article.html"
-       >Alle Artikel</a></li>
+      <li tal:repeat="item python: navitems.get(obj)"><a href="" tal:attributes="href item/url" tal:content="item/title">  </a></li>
     </ul>
   </li>
 </ul>

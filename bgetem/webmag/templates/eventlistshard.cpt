@@ -1,8 +1,18 @@
-<h4 class="media-heading">Termine</h4>
-<ul class="event" tal:define="eventlist shard.banner()">
-  <li class="small-blue-event" tal:repeat="event eventlist">
-    <strong tal:content="event.get('date')" />, <strong tal:content="event.get('location')" /><br />
-    <span tal:content="event.get('eventtext')" />
-    <span class="seperator" tal:condition="not repeat.event.end" />
-  </li>
-</ul>
+<div class="card card--green" data-equalizer-watch>
+  <div class="card-section">
+    <h4>Termine</h4>
+    <div tal:repeat="event shard.banner()">
+      <div class="card--date">
+        <i class="fa fa-calendar" aria-hidden="true"></i> 
+        <span tal:replace="event.get('date')"> </span> | 
+        <i class="fa fa-map-marker" aria-hidden="true"></i> 
+        <span tal:replace="event.get('location')"> </span> 
+      </div>
+      <div class="">
+        <h6 tal:content="event.get('eventtext')"></h6>
+      </div>
+      <hr>
+    </div>
+    <div class="text-right"><a class="card--link" href="www.bgetem.de"><i class="fa fa-angle-right" aria-hidden="true"></i> weitere termine</a></div>
+  </div>
+</div>

@@ -52,7 +52,8 @@ class NewsPaperLayout(Layout):
     grok.layer(IAnonymousLayer)
 
 
-class Navigation(api.ViewletManager):
+class NavigationManager(api.ViewletManager):
+    api.name('navigation')
     api.implements(INavigation)
     api.context(interface.Interface)
     grok.layer(IAnonymousLayer)

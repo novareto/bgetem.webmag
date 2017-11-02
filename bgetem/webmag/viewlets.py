@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import urllib
 
-from Products.CMFCore.utils import getToolByName
 from five import grok
 from nva.magazinfolder.interfaces import IAnonymousLayer, IMagazinFolder
 from plone.api import portal
@@ -11,11 +9,13 @@ from plone.app.layout.globals.interfaces import IViewView
 from plone.dexterity.interfaces import IDexterityItem
 from uvc.api import api
 from zope import interface
-from zope.component import getMultiAdapter
+from plone.api import content
+from .views import NewspaperView
 from zope.interface import Interface
 
 from . import get_webmag
 from .views import NewspaperView
+from nva.magazinfolder.interfaces import IAnonymousLayer
 from .interfaces import IPageTop, IFooter, INavigation, IAboveContent
 
 
@@ -26,34 +26,31 @@ def grouper(size, values):
     return zip(*(iter(values),) * size)
 
 
-class Navigation(api.Viewlet):
-    grok.order(10)
-    grok.viewletmanager(INavigation)
-    grok.context(Interface)
-
-
 class PageHeader(api.Viewlet):
     grok.order(10)
     grok.layer(IAnonymousLayer)
     api.context(interface.Interface)
     api.viewletmanager(IPageTop)
 
+
+class Navigation(api.Viewlet):
+    grok.order(10)
+    grok.viewletmanager(INavigation)
+    grok.context(Interface)
+    grok.view(NewspaperView)
+    navitems = {}
+
     def update(self):
-        api.Viewlet.update(self)
-        self.catalog = getToolByName(self.context, 'portal_catalog')
-        fc = self.context.aq_parent.getFolderContents()
-        seq = []
-        for i in fc:
-            entry = {}
-            obj = i.getObject()
-            if obj.portal_type == "Document":
-                if not getattr(obj, 'excludenextprev', False) and not obj.id == "index.html":
-                    entry['linktitle'] = "%s : %s" % (
-                        getattr(obj, "category", "No Category"), obj.title)
-                    entry['url'] = obj.absolute_url()
-                    seq.append(entry)
-        self.doclist = [seq[i:i+8] for i  in range(0, len(seq), 8)]
-        self.ausgabe = self.context.aq_parent.Description()
+        rc = {}
+        for brain in content.find(self.context, portal_type='Document'):
+            document = brain.getObject()  # BBB
+            if document.category:
+                if document.category not in rc.keys():
+                    rc[document.category] = []
+                rc[document.category].append(
+                    dict(title=document.title, url=document.absolute_url())
+                )
+        self.navitems = rc
 
 
 class EtemPlus(api.Viewlet):
@@ -90,7 +87,7 @@ class Campaign(api.Viewlet):
     grok.context(IMagazinFolder)
     grok.view(NewspaperView)
 
-        
+
 class PageFooter(api.Viewlet):
     grok.order(20)
     grok.layer(IAnonymousLayer)
