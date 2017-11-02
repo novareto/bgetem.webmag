@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import urllib
 from Products.CMFCore.utils import getToolByName
 from five import grok
 from plone import api as ploneapi
@@ -30,6 +31,39 @@ class NewspaperView(Page):
     grok.layer(IAnonymousLayer)
 
 
+class WebmagSearch(Page):
+    api.context(Interface)
+    grok.layer(IAnonymousLayer)
+
+    def extract(self):
+        value = self.request.form.get('value', None)
+        themen = self.request.form.get('themen', None)
+        search = bool(value or themen)
+        if search:
+            return value, themen
+        return None
+
+    def search(self, value, themen):
+        return []
+    
+    def update(self):
+        extracted = self.extract()
+        if extracted is not None:
+            value, themen = extracted
+            self.results = self.search(value, themen)
+        else:
+            self.results = []
+
+        self.themen = (
+            "Kompakt",
+            "Mensch & Praxis",
+            "Gesundheit",
+            "Service",
+            "Kampagne",
+        )
+        
+
+    
 class ContentPage(Page):
     grok.context(IDocument)
     grok.name('document_view')

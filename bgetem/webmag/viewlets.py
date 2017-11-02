@@ -4,6 +4,8 @@ import urllib
 
 from Products.CMFCore.utils import getToolByName
 from five import grok
+from nva.magazinfolder.interfaces import IAnonymousLayer, IMagazinFolder
+from plone.api import portal
 from plone.app.contenttypes.interfaces import IDocument
 from plone.app.layout.globals.interfaces import IViewView
 from plone.dexterity.interfaces import IDexterityItem
@@ -12,12 +14,16 @@ from zope import interface
 from zope.component import getMultiAdapter
 from zope.interface import Interface
 
+from . import get_webmag
 from .views import NewspaperView
 from .interfaces import IPageTop, IFooter, INavigation, IAboveContent
-from nva.magazinfolder.interfaces import IAnonymousLayer
 
 
 api.templatedir('templates')
+
+
+def grouper(size, values):
+    return zip(*(iter(values),) * size)
 
 
 class Navigation(api.Viewlet):
@@ -53,28 +59,36 @@ class PageHeader(api.Viewlet):
 class EtemPlus(api.Viewlet):
     grok.order(10)
     grok.viewletmanager(IAboveContent)
-    grok.context(Interface)
+    grok.context(IMagazinFolder)
     grok.view(NewspaperView)
     dokumente = []
 
     def update(self):
-        self.dokumente = [x for x in self.context['etem'].values()]
+        webmag = get_webmag(self.context)
+        values = (x for x in webmag['etem'].values())
+        groups = grouper(size=4, values=values)
+        self.groups = groups
 
 
 class Carousel(api.Viewlet):
     grok.order(20)
     grok.viewletmanager(IPageTop)
-    grok.context(Interface)
+    grok.context(IMagazinFolder)
+    grok.view(NewspaperView)
     bilder = []
 
     def update(self):
-        self.bilder = [x for x in self.context['titelstories'].values()]
+        import pdb
+        pdb.set_trace()
+        webmag = get_webmag(self.context)
+        self.bilder = [x for x in webmag['titelstories'].values()]
 
 
 class Campaign(api.Viewlet):
     grok.order(10)
     grok.viewletmanager(IFooter)
-    grok.context(Interface)
+    grok.context(IMagazinFolder)
+    grok.view(NewspaperView)
 
         
 class PageFooter(api.Viewlet):
