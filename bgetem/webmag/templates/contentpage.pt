@@ -5,13 +5,12 @@
 			<div class="cell medium-8 medium-offset-2 small-12 c-article">
 				<h6 class="c-article__catchword">Ladungssicherung</h6>
 				<div id="viewlet-above-content-title" tal:content="structure provider:plone.abovecontenttitle"> </div>
-				<h1 class="c-article__title" tal:attributes="context/title"></h1>
+				<h1 class="c-article__title" tal:content="context/Title"></h1>
 				<div id="viewlet-below-content-title" tal:content="structure provider:plone.belowcontenttitle"> </div>
-				<p class="c-article__teaser" tal:attributes="context/description"></p>
+				<p class="c-article__teaser" tal:content="context/Description"></p>
 
 
-				<img class="thumbnail" src="assets/img/article-leadimage.jpg" alt="infoKasten">
-
+				<img class="thumbnail" tal:attributes="src view/image" alt="infoKasten">
 				<div id="viewlet-above-content-body" tal:content="structure provider:plone.abovecontentbody"> </div>
 				<p class="c-article__content">
 					<span id="parent-fieldname-text" tal:condition="context/text" tal:content="structure python:context.text.output_relative_to(view.context)"> </span>
@@ -24,7 +23,6 @@
 					</ul>
 				</div>
 
-				<!-- info -->
 				<div class="callout callout--infobox">  
 
 					<h4 class="">Weitere Informationen</h4>

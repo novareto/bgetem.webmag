@@ -8,13 +8,28 @@ from uvc.api import api
 from plone import api as ploneapi
 from .layout import BSPage as Page
 from zope.interface import Interface
+from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from plone.app.contenttypes.interfaces import IDocument
 from nva.magazinfolder.interfaces import IAnonymousLayer
 from plone.app.layout.globals.interfaces import IViewView
+from nva.magazinfolder.interfaces import IMagazinFolder
 
 
 api.templatedir('templates')
+
+
+class Index(Page):
+    grok.name('view')
+    grok.implements(IViewView)
+    api.context(IMagazinFolder)
+    grok.layer(IAnonymousLayer)
+
+    def render(self):
+        view = getMultiAdapter(
+                (self.context, self.request),
+                name="newspaperview")
+        return view()
 
 
 class NewspaperView(Page):
