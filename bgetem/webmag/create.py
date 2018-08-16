@@ -11,7 +11,10 @@ from zope.lifecycleevent.interfaces import IObjectAddedEvent
 
 @api.subscribe(IMagazinFolder, IObjectAddedEvent)
 def handle(folder, event):
-    content.create(type="Folder", title="ETEM +", container=folder)
-    content.create(type="Folder", title="TitelStories", container=folder)
+    content.create(type="Folder", id="titelstories", title=u"Bühnen-Beiträge", container=folder)
+    content.create(type="Folder", title=u"ETEM +", container=folder)
+    content.create(type="Folder", title=u"Themen", container=folder)
+    content.create(type="Folder", title=u"Kampagnen", container=folder)
+    content.create(type="Folder", title=u"Medien dieser Ausgabe", container=folder)
     # --> TitelStories Folder --->
     #

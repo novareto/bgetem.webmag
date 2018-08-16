@@ -5,14 +5,18 @@
 #import tweepy
 #from tweepy import OAuthHandler
 
+import requests
+import json
 from plone import api as papi
 from uvc.api import api
 from uvc.shards import BaseShard as Shard
 from zope.component import getUtility
+from zope.component import getMultiAdapter
 from collective.prettydate.interfaces import IPrettyDate
 import twitter
 import logging
 from ttp import ttp
+from DateTime import DateTime
 logger = logging.getLogger('nva.bgetemwebmag')
 api.templatedir('templates')
 
@@ -24,6 +28,16 @@ class BaseShard(Shard):
     def css(self):
         return self._namespace.get('class', '')
 
+class SelectShard(BaseShard):
+    api.name('myselect')
+
+    def render(self):
+        view = getMultiAdapter(
+             (self.context, self.request),
+              name="document")
+        html = view().banner(view, self._namespace.get('document')) 
+        return html
+        #return 'Hallo Welt'
 
 class DocumentShard(BaseShard):
     api.name('document')
@@ -35,13 +49,29 @@ class DocumentShard(BaseShard):
             folder = self.context.get(doclist[0])
             obj = folder.get(doclist[1])
         else:
-            obj = self.context.get(doc)
+            folder = self.context.get('themen')
+            obj = folder.get(doc)
         banner = {}
         if obj:
             banner['title'] = obj.title
+            if hasattr(obj, 'newstitle'):
+                if obj.newstitle:
+                     banner['title'] = obj.newstitle
             banner['description'] = obj.description
-            banner['banner_image'] = ('%s/@@images/newsimage' %
-                                      obj.absolute_url())
+            if hasattr(obj, 'newstext'):
+                if obj.newstext:
+                     banner['description'] = obj.newstext
+            if hasattr(obj, 'titleimage'):
+                if obj.titleimage:
+                    imgobj = obj.titleimage.to_object
+                    banner['banner_image'] = ('%s/@@images/image' %
+                                               imgobj.absolute_url())
+                if obj.newsimage:
+                    banner['banner_image'] = ('%s/@@images/newsimage' %
+                                              obj.absolute_url())
+            else:
+                banner['banner_image'] = ('%s/@@images/newsimage' %
+                                          obj.absolute_url())
             banner['url'] = obj.absolute_url()
             banner['imgtitle'] = obj.newstitle
             banner['category'] = obj.category
@@ -95,7 +125,8 @@ class RichTextShard(BaseShard):
 
     def banner(self):
         doc = self._namespace.get('document')
-        obj = self.context.get(doc)
+        folder = self.context.get('themen')
+        obj = folder.get(doc)
         banner = {}
         if obj:
             banner['category'] = obj.category
@@ -109,37 +140,32 @@ class RichTextShard(BaseShard):
 class EventListShard(BaseShard):
     api.name('eventlist')
 
+    def eventsummary(self):
+        doc = self._namespace.get('eventfolder')
+        folder = self.context.get('themen')
+        termine = folder.get(doc)
+        return termine.sumUrl
+        
     def banner(self):
-        folder = self._namespace.get('eventfolder')
-        obj = self.context.get(folder)
+        doc = self._namespace.get('eventfolder')
+        folder = self.context.get('themen')
+        termine = folder.get(doc)
+        url = termine.remoteUrl
+        headers = {'Accept':'application/json'}
+        results = requests.get(url, headers = headers)
+        data = results.json()
         eventlist = []
-        results = []
-        if obj.portal_type == 'Folder':
-            results = obj.getFolderContents()
-        elif obj.portal_type == 'Collection': 
-            results = obj.results(brains=False, b_size=5)
-        for b in results:
-            i = b.getObject()
-            if i.portal_type == 'Event':
-                event = {}
-                event['eventtext'] = i.title
-                if i.start.date() == i.end.date():
-                    event['date'] = i.start.strftime("%d.%m.%Y")
-                else:
-                    if i.start.year == i.end.year:
-                        if i.start.month == i.end.month:
-                            event['date'] = "%s. - %s" % (
-                                i.start.day, i.end.strftime("%d.%m.%Y"))
-                        else:
-                            event['date'] = "%s - %s" % (
-                                i.start.strftime("%d.%m"),
-                                i.end.strftime("%d.%m.%Y"))
-                    else:
-                        event['date'] = "%s - %s" % (
-                            i.start.strftime("%d.%m.%Y"),
-                            i.end.strftime("%d.%m.%Y"))
-                event['location'] = i.location
-                eventlist.append(event)
+        if data.get('items'):
+            for i in data.get('items')[:5]:
+                if i.get('@type') == 'Event':
+                    termindata = requests.get(i.get('@id'), headers=headers)
+                    termin = termindata.json()
+                    event = {}
+                    event['eventtext'] = termin.get('title')
+                    event['date'] = DateTime(termin.get('startDate')).strftime("%d.%m.%Y")
+                    event['location'] = termin.get('location')
+                    event['url'] = termin.get('@id')
+                    eventlist.append(event)
         return eventlist
 
 

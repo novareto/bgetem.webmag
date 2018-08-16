@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import urllib
+from DateTime import DateTime
+from datetime import datetime
+from zope.interface import Interface
 from Products.CMFCore.utils import getToolByName
 from five import grok
 from uvc.api import api
@@ -10,15 +12,51 @@ from zope.interface import Interface
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from plone.app.contenttypes.interfaces import IDocument
+from nva.magazinartikel.interfaces import IMagazinartikel, get_sparte
 from nva.magazinfolder.interfaces import IAnonymousLayer
 from plone.app.layout.globals.interfaces import IViewView
 from nva.magazinfolder.interfaces import IMagazinFolder
-
+from nva.magazinartikel.interfaces import IMagazinartikel
+from chameleon import PageTemplate
+from grokcore.chameleon import components
 
 api.templatedir('templates')
 
+from uvc.shards.shard import resolve_shard
+from uvc.shards.shard import query_shard
+from chameleon.astutil import Symbol
 
-class Index(Page):
+class SelectorView(api.View):
+    api.context(Interface)
+
+    def render(self):
+        if ploneapi.user.is_anonymous():
+            if 'vorschau-etem.bgetem.de' in self.request.get('URL'):
+                url = ploneapi.portal.get().absolute_url() + '/vorschau'
+                return self.redirect(url)
+            else:
+                pcat = getToolByName(self.context, 'portal_catalog')
+                brains = pcat(portal_type='Magazinfolder', review_state="published", sort_on="effective", sort_order="descending")
+                obj = brains[0].getObject()
+                url = obj.absolute_url()
+                return self.redirect(url)
+        else:
+            url = ploneapi.portal.get().absolute_url() + '/folder_contents'
+            return self.redirect(url)
+
+class Vorschau(api.View):
+    api.context(Interface)
+
+    def render(self):
+        pcat = getToolByName(self.context, 'portal_catalog')
+        brains = pcat(portal_type='Magazinfolder', review_state="preview", sort_on="modified", sort_order="descending")
+        if brains:
+            obj = brains[0].getObject()
+            url = obj.absolute_url()
+            return self.redirect(url)
+        return u"Keine Ausgabe für Vorschauansicht gefunden"
+
+class Index(api.View):
     grok.name('view')
     grok.implements(IViewView)
     api.context(IMagazinFolder)
@@ -30,13 +68,28 @@ class Index(Page):
                 name="newspaperview")
         return view()
 
-
 class NewspaperView(Page):
     grok.implements(IViewView)
     api.context(Interface)
     grok.layer(IAnonymousLayer)
 
+    def shardrender(self, obj):
+        namespace = {}
+        namespace['context'] = self.context
+        namespace['request'] = self.request
+        namespace['document'] = obj.id
+        shard_factory = self.shards.get(obj.kindofshard)
+        shard = shard_factory(namespace)
+        return resolve_shard(shard)
 
+    def themencontents(self):
+        folder = self.context.get('themen')
+        contentlist = []
+        fc = folder.getFolderContents()
+        for i in fc:
+            contentlist.append(i.getObject())
+        return contentlist
+        
 class WebmagSearch(Page):
     api.context(Interface)
     grok.layer(IAnonymousLayer)
@@ -67,15 +120,16 @@ class WebmagSearch(Page):
             "Service",
             "Kampagne",
         )
-        
-
     
 class ContentPage(Page):
-    grok.context(IDocument)
+    grok.context(IMagazinartikel)
     grok.name('document_view')
     grok.layer(IAnonymousLayer)
 
     def update(self):
+        themen = self.context.aq_parent
+        magazin = themen.aq_parent
+        self.ausgabe = magazin.description
         localurl = self.context.absolute_url()
         self.image = '%s/@@images/newsimage' % localurl
         self.lineclass = 'title-border line-%s' % getattr(
@@ -83,6 +137,98 @@ class ContentPage(Page):
         self.quoted = urllib.quote_plus(localurl)
         self.titlequoted = urllib.quote_plus(self.context.Title())
 
+
+class ThemenCollectionPage(Page):
+    api.context(IMagazinFolder)
+    grok.name('themen_collection')
+    grok.layer(IAnonymousLayer)
+
+    def update(self):
+        buehne = self.context.get('titelstories')
+        fc = buehne.getFolderContents()
+        folder = self.context.get('themen')
+        fc += folder.getFolderContents()
+        self.artlist = []
+        for i in fc:
+            obj = i.getObject()
+            banner = {}
+            if obj:
+                banner['title'] = obj.title
+                if hasattr(obj, 'newstitle'):
+                    if obj.newstitle:
+                        banner['title'] = obj.newstitle
+                banner['description'] = obj.description
+                if hasattr(obj, 'newstext'):
+                    if obj.newstext:
+                        banner['description'] = obj.newstext
+                if hasattr(obj, 'titleimage'):
+                    if obj.titleimage:
+                        imgobj = obj.titleimage.to_object
+                        banner['banner_image'] = ('%s/@@images/image' %
+                                                   imgobj.absolute_url())
+                    if obj.newsimage:
+                        banner['banner_image'] = ('%s/@@images/newsimage' %
+                                                  obj.absolute_url())
+                else:
+                    banner['banner_image'] = ('%s/@@images/newsimage' %
+                                              obj.absolute_url())
+                if hasattr(obj, 'listimage'):
+                    if obj.listimage:
+                        banner['banner_image'] = ('%s/@@images/listimage' %
+                                                  obj.absolute_url())
+                banner['url'] = obj.absolute_url() + '/document_view'
+                banner['target'] = '_self'
+                if obj.portal_type == 'Link':
+                    if hasattr(obj, 'sumUrl'):
+                        banner['url'] = obj.sumUrl
+                        banner['target'] = '_blank'
+                try:
+                    banner['category'] = obj.category
+                except:
+                    banner['category'] = ''
+            self.artlist.append(banner)
+
+class EtemCollectionPage(Page):
+    api.context(IMagazinFolder)
+    grok.name('etem_collection')
+    grok.layer(IAnonymousLayer)
+
+    def update(self):
+        folder = self.context.get('etem')
+        fc = folder.getFolderContents()
+        self.artlist = []
+        for i in fc:
+            obj = i.getObject()
+            banner = {}
+            if obj:
+                banner['title'] = obj.title
+                if hasattr(obj, 'newstitle'):
+                    if obj.newstitle:
+                        banner['title'] = obj.newstitle
+                banner['description'] = obj.description
+                if hasattr(obj, 'newstext'):
+                    if obj.newstext:
+                        banner['description'] = obj.newstext
+                if hasattr(obj, 'titleimage'):
+                    if obj.titleimage:
+                        imgobj = obj.titleimage.to_object
+                        banner['banner_image'] = ('%s/@@images/image' %
+                                                   imgobj.absolute_url())
+                    if obj.newsimage:
+                        banner['banner_image'] = ('%s/@@images/newsimage' %
+                                                  obj.absolute_url())
+                else:
+                    banner['banner_image'] = ('%s/@@images/newsimage' %
+                                              obj.absolute_url())
+                banner['url'] = obj.absolute_url() + '/document_view'
+                branchen = []
+                for i in obj.sparte:
+                    branchen.append(get_sparte(self.context).getTerm(i).title)
+                try:
+                    banner['category'] = ', '.join(branchen)
+                except:
+                    banner['category'] = ''
+            self.artlist.append(banner)
 
 class Titelview(Page):
     api.context(Interface)
@@ -100,7 +246,7 @@ class KompaktTitelview(Page):
 
 
 class Bildrechte(Page):
-    api.context(Interface)
+    api.context(IMagazinFolder)
     grok.layer(IAnonymousLayer)
 
     @property
@@ -108,9 +254,9 @@ class Bildrechte(Page):
         return getToolByName(self.context, 'portal_catalog')
 
     def getImageBrains(self):
-        folderid = self.context.aq_parent.id
-        path = '/magazin/%s/medien-dieser-ausgabe' % folderid
-        return self.portal_catalog(path=path, portal_type='Image')
+        folder = self.context.get('medien-dieser-ausgabe')
+        fc = folder.getFolderContents()
+        return fc
 
     def update(self):
         brains = self.getImageBrains()
@@ -119,12 +265,14 @@ class Bildrechte(Page):
         for i in brains:
             entry = {}
             obj = i.getObject()
-            if obj.Rights():
-                entry['title'] = obj.Description()
-                entry['url'] = obj.absolute_url() + '/@@images/image/thumb'
-                entry['rights'] = obj.Rights()
-                if not obj.id == u'titelbild':
-                    bildrechte.append(entry)
+            if obj.portal_type == 'Image':
+                if obj.Rights():
+                    entry['title'] = obj.Title()
+                    entry['description'] = obj.Description()
+                    entry['url'] = obj.absolute_url() + '/@@images/image/thumb'
+                    entry['rights'] = obj.Rights()
+                    if not obj.id == u'titelbild':
+                        bildrechte.append(entry)
         bildrechte.sort()
         self.bildrechte = bildrechte
 

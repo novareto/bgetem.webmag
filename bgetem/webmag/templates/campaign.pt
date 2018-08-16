@@ -1,34 +1,29 @@
-<!-- example xy grid -->
-<div class="" style="">
-  <div class="grid-x grid-margin-x text-center">
-    <div class="cell small-12">
-      <div class="card-image">
-  	<img src="/++resource++bgetem.webmag/assets/img/campaign-01.jpg" />
+<div class="grid-container grid-container-padded">
+        <div class="grid-x grid-margin-x">
+      
+          <div class="cell small-12 slider-campaign">
+            <!-- slider -->
+            <div id="79dbf0-orbit" class="orbit" role="region" aria-label="ETEM Magazin Kampagnen" data-orbit="" data-infinite-wrap="true" data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;" data-resize="79dbf0-orbit" data-t="jqobd4-t" data-events="resize">
+               <!-- slider wrapper -->
+              <div class="orbit-wrapper">
+              <div class="orbit-controls">
+                <button class="orbit-previous" tabindex="0"><span class="show-for-sr">Previous Slide</span><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+                <button class="orbit-next" tabindex="0"><span class="show-for-sr">Next Slide</span><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+              </div>
+              <ul class="orbit-container" tabindex="0" style="height: 1185.5px;">
+                <li class="orbit-slide is-active" tal:repeat="obj viewlet/dokumente">
+                  <figure class="orbit-figure">
+                    <img class="orbit-image" tal:attributes="src python: viewlet.image(obj)" alt="Bild 01">
+                    <figcaption class="orbit-caption-campaign medium-8 medium-offset-2 small-12 c-article text-center">
+                      <h6 class="c-article__catchword" tal:content="obj/dachzeile"></h6>
+                      <h1 class="c-article__title" tal:content="obj/title"></h1>
+                      <p class="c-article__teaser" tal:content="obj/description"></p>
+                    </figcaption>
+                  </figure>
+                </li>
+              </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="cell medium-6 medium-offset-3 small-12 c-article">
-        <h6 class="c-article__catchword"
-	    >383 tödliche Fahrradunfälle in 2015</h6>
-        <h1 class="c-article__title"
-	    >Für andere mitdenken, vorausschauend fahren!</h1>
-        <p class="c-article__teaser">
-	  Radfahrer zahlen bei Verkehrsunfällen mit ihren Knochen oder
-	  sogar dem Leben. Darum ist konzentriertes, vorausschauendes
-	  Fahren ohne Ablenkungen, wie Handy oder Musik, extrem
-	  wichtig. Defensives Fahren – mit Helm und gut sichtbar –
-	  dient dem Selbstschutz, da man gegenüber Kraftfahrzeugen
-	  immer der Schwächere ist.
-	</p>
-      </div>
-    </div>
-  </div>
-</div>
-  
-<!-- example float grid -->
-<div class="expanded row">
-  <!--
-      <div class="small-4 large-3 columns">cell</div>
-      <div class="small-4 large-3 columns">cell</div>
-      <div class="small-4 large-3 columns">cell</div>
-      <div class="small-2 large-3 columns">cell</div>
-  -->
-</div>

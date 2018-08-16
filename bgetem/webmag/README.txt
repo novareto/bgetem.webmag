@@ -15,3 +15,17 @@ Shards
 Slider
 ------
  - a href fehlt
+
+
+KAMPAGNE
+--------
+ - Immer nur eine pro Ausgabe oder immer die aktuelle?
+
+newbehaviour
+------------
+ - newsimage
+ - sparte
+ - colorcode
+ - newsrichtext
+ - category
+

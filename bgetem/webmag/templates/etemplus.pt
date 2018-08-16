@@ -25,28 +25,29 @@
 	<li tal:repeat="group viewlet/groups"
 	    class="is-active orbit-slide">
 	  <div class="row small-up-1 medium-up-4 align-center">
-
 	    <div class="column" tal:repeat="item group">
+              <a href="" tal:attributes="href python:view.url(item)+'/document_view'">
 	      <div class="card" data-equalizer-watch>
-		<div class="card-image show-for-medium">
-		  <img src="assets/img/card-01.jpg" />
+		<div class="card-image">
+                  <img tal:condition="python: viewlet.image(item)" tal:attributes="src python: viewlet.image(item)" alt="Etem+">
 		</div>
 		<div class="card-section">
-		  <p class="card-section--cat">Wasser & Energiewirtschaft</p>
-		  <h5>Sicherheit bei der betrieblichen Gasversorgung</h5>
+		  <p class="card-section--cat" tal:content="python: viewlet.sparte(item)">Wasser & Energiewirtschaft</p>
+		  <!--<h5 tal:content="item/dachzeile">Sicherheit bei der betrieblichen Gasversorgung</h5>-->
 		  <h4 tal:content="item/Title" />
+                  <p tal:content="python: viewlet.description(item)"/>
 		</div>
 		<div class="text-right" style="padding-right: 1rem;">
-		  <p><a class="card--link" tal:attributes="href python:view.url(item)"><i class="fa fa-angle-right" aria-hidden="true"></i> Weiterlesen</a></p>
 		</div>
 	      </div>
+            </a>
 	    </div>
-
 	  </div>
+
 	</li>
       </ul>
       <div class="small-12 cell text-center">
-	<p class="text-center"><a href="collection-page.html"><button class="c-button c-button--wide">Weitere Fachartikel suchen</button></a> </p>
+	<p class="text-center"><a class="c-button c-button--wide" tal:attributes="href python:context.absolute_url() + '/etem_collection'">Weitere Fachartikel suchen</a> </p>
       </div>
     </div>
   </div>

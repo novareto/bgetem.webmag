@@ -2,7 +2,7 @@
   <div class="grid-x grid-padding-x">
     <div class="small-5 medium-6 cell">
       <div class="card-image" style="vertical-align: bottom;">
-        <a href="index.html">
+        <a tal:attributes="href viewlet.magurl" href="index.html">
 	  <img src="/++resource++bgetem.webmag/assets/img/logo_etem_magazin.png" />
 	</a>
       </div>
@@ -19,7 +19,7 @@
   <div data-sticky data-margin-top='0' data-top-anchor="header:bottom" data-btm-anchor="content:bottom">
     <div class="top-bar topbar-sticky-shrink">		
       <div class="title-bar-left c-nav">
-	<button class="menu-icon" type="button" data-open="offCanvas"></button>
+	<!--<button class="menu-icon" type="button" data-open="offCanvas"></button>-->
 	<h5>
 	  <span class="title-bar-title c-nav--title">
 	    etem - Magazin für Prävention,
@@ -27,12 +27,7 @@
 	  </span>
 	</h5>
       </div>
-      <div class="top-bar-right">
-	<ul class="menu">
-	  <li><input type="search" placeholder="Search"></li>
-	  <li><button type="button" class="button">Suche</button></li>
-	</ul>
-      </div>
+      
     </div>
   </div>
 </div>

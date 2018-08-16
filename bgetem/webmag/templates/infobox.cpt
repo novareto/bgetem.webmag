@@ -1,0 +1,14 @@
+<div class="c-container-info">
+ <div class="row">
+  <div class="cell small-12 large-8">
+   <div class="c-container-info--content">
+    <h4>Erhalten Sie aktuelle Informationen direkt in Ihre Mailbox</h4>
+    <p>Melden Sie sich jetzt für unseren Newsletter an, um über die aktuellsten Themen informiert zu werden und immer auf dem neuesten Stand zu sein.</p>
+   </div>
+  </div>
+  <div class="large-12 cell">
+   <p>  <a href="https://www.bgetem.de/medien-service/etem-magazin-fuer-praevention-rehabilitation-und-entschaedigung/newsletter-etem" 
+           class="button c-button c-button--wide c-button--slider" style="margin-top: 30px;">Jetzt anmelden</a></p>
+  </div>
+ </div>
+</div>

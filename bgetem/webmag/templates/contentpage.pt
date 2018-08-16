@@ -3,37 +3,52 @@
 		<div class="grid-x grid-padding-x">
 
 			<div class="cell medium-8 medium-offset-2 small-12 c-article">
-				<h6 class="c-article__catchword">Ladungssicherung</h6>
+				<h6 class="c-article__catchword" tal:content="context/dachzeile">Dachzeile</h6>
 				<div id="viewlet-above-content-title" tal:content="structure provider:plone.abovecontenttitle"> </div>
 				<h1 class="c-article__title" tal:content="context/Title"></h1>
 				<div id="viewlet-below-content-title" tal:content="structure provider:plone.belowcontenttitle"> </div>
 				<p class="c-article__teaser" tal:content="context/Description"></p>
 
 
-				<img class="thumbnail" tal:attributes="src view/image" alt="infoKasten">
+				<!--<img class="thumbnail" tal:attributes="src view/image" alt="infoKasten">-->
 				<div id="viewlet-above-content-body" tal:content="structure provider:plone.abovecontentbody"> </div>
-				<p class="c-article__content">
-					<span id="parent-fieldname-text" tal:condition="context/text" tal:content="structure python:context.text.output_relative_to(view.context)"> </span>
-				</p>
 
-
-				<div class="callout">
-					<ul class="menu simple">
-						<li><a href="#">Author: Dieter Bachmann</a></li>
-					</ul>
+				<div class="c-article__content">
+					<span id="parent-fieldname-text" tal:condition="context/text" 
+                                              tal:content="structure python:context.text.output_relative_to(view.context)"> </span>
 				</div>
 
-				<div class="callout callout--infobox">  
+                                <div tal:condition="context/infobox" class="callout callout--infobox" tal:attributes="class string:callout ${context/boxformat}">  
+                                    <div tal:replace="structure context/infobox/output"/>
+                                </div>
 
-					<h4 class="">Weitere Informationen</h4>
-					<p>unter www.bgetem.de, Webcode: 11205644</p>
-					<ul class="no-bullet c-article__content">
-						<li>zur DGUV-Befragung von Kleinstbetriebe-Arbeitgeber: <a href="#"><b>www.dguv.de</b></a></li>
-						<li>zur BAuA-Untersuchung zum betriebsärztlichen Tätigkeitsspektrum: <a href="#"><b> www.baua.de</b></a></li>
-						<li>zur BAuA-Studie zum arbeitsmedizinischen Betreuungsbedarf: <a href="#"><b>www.baua.de</b></a></li>
-					</ul>
 
-				</div>
+                                <div tal:condition="context/text2" class="c-article__content">
+                                        <span id="parent-fieldname-text" tal:content="structure python:context.text2.output_relative_to(view.context)"> </span>
+                                </div>
+
+
+                                <div tal:condition="context/infobox2" class="callout callout--infobox" tal:attributes="class string:callout ${context/boxformat2}">
+                                    <div tal:replace="structure context/infobox2/output"/>
+                                </div>
+
+                                <div tal:condition="context/text3" class="c-article__content">
+                                        <span id="parent-fieldname-text" tal:content="structure python:context.text3.output_relative_to(view.context)"> </span>
+                                </div>
+
+
+                                <div tal:condition="context/infobox3" class="callout callout--infobox" tal:attributes="class string:callout ${context/boxformat3}">
+                                    <div tal:replace="structure context/infobox3/output"/>
+                                </div>
+
+                                 <div tal:condition="context/contributors" class="callout">
+                                        <ul class="menu simple">
+                                                <li tal:repeat="contrib context/contributors" tal:content="contrib"></li>
+                                        </ul>
+                                </div>
+                                <div tal:condition="view/ausgabe">
+                                  <p class="discreet"><b><span tal:content="view/ausgabe"/></b></p>
+                                </div>
 
 			</div>
 		</div>

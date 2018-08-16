@@ -2,6 +2,7 @@
   <div class="card-section">
     <h4>Termine</h4>
     <div tal:repeat="event shard.banner()">
+      <a href="" target="_blank" tal:attributes="href event.get('url')">
       <div class="card--date">
         <i class="fa fa-calendar" aria-hidden="true"></i> 
         <span tal:replace="event.get('date')"> </span> | 
@@ -11,8 +12,10 @@
       <div class="">
         <h6 tal:content="event.get('eventtext')"></h6>
       </div>
+      </a>
       <hr>
     </div>
-    <div class="text-right"><a class="card--link" href="www.bgetem.de"><i class="fa fa-angle-right" aria-hidden="true"></i> weitere termine</a></div>
+    <div class="text-right"><a target="_blank" class="card--link" tal:attributes="href shard.eventsummary()">
+         <i class="fa fa-angle-right" aria-hidden="true"></i> weitere Termine</a></div>
   </div>
 </div>

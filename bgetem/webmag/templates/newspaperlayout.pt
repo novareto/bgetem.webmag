@@ -5,8 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>etem - Magazin für Prävention, Rehabilitation und Entschädigung</title>
-    <link rel="stylesheet"
-	  tal:attributes="href string:/++resource++bgetem.webmag/assets/css/app.css" />
+    <link rel="stylesheet" tal:attributes="href string:/++resource++bgetem.webmag/assets/css/app.css" />
+    <link rel="stylesheet" tal:attributes="href string:/++resource++bgetem.webmag/custom.css" />
   </head>
   <body>
     
@@ -26,6 +26,7 @@
 	<div id="content">
 	  <div tal:replace="structure provider:abovecontent" />
 	  <div tal:replace="structure python:view.content()" />
+	  <div tal:replace="structure provider:belowcontent" />
 	</div>
 	<div tal:replace="structure provider:footer" />
       </div>

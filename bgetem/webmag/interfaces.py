@@ -20,6 +20,11 @@ class IAboveContent(Interface):
     """
 
 
+class IBelowContent(Interface):
+    """
+    """
+
+
 class IFooter(Interface):
     """
     """

@@ -1,8 +1,6 @@
 <div class="card card--secondary" data-equalizer-watch tal:define="banner shard.banner()">
-  <a href="" class="" tal:attributes="href banner.get('url')">
     <div class="card-section">
       <p class="card-section--catwhite" tal:content="banner.get('category')"></p>
       <p class="small-green" tal:condition="banner.get('newsrichtext')" tal:replace="structure banner.get('newsrichtext')"> </p>
     </div>
-  </a>
 </div>

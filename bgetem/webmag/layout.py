@@ -2,7 +2,7 @@
 # Copyright (c) 2007-2013 NovaReto GmbH
 # cklinger@novareto.de
 
-from .interfaces import IPageTop, IFooter, INavigation, IAboveContent
+from .interfaces import IPageTop, IFooter, INavigation, IAboveContent, IBelowContent
 
 from five import grok
 from grokcore.layout import Layout
@@ -77,6 +77,12 @@ class PageTop(api.ViewletManager):
 
 class AboveContent(api.ViewletManager):
     api.implements(IAboveContent)
+    api.context(interface.Interface)
+    grok.layer(IAnonymousLayer)
+
+
+class BelowContent(api.ViewletManager):
+    api.implements(IBelowContent)
     api.context(interface.Interface)
     grok.layer(IAnonymousLayer)
 

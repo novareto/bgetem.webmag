@@ -1,5 +1,5 @@
 <div tal:define="banner shard.banner()" class="card" data-equalizer-watch tal:attributes="class 'card ' + banner.get('cssclass')">
-  <a href="" class="" tal:attributes="href banner.get('url')">
+  <a href="" class="" tal:attributes="href banner.get('url') + '/document_view'">
     <!-- wrap .card-image needed for bug IE11 flexbug -->
     <div class="card-image">
       <img tal:attributes="src banner.get('banner_image');
