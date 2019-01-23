@@ -13,15 +13,17 @@
     </div>
     <ul class="orbit-container">
       <li class="is-active orbit-slide" tal:repeat="obj viewlet/bilder">
-        <figure class="orbit-figure">
-          <img class="orbit-image" tal:attributes="src python: viewlet.image(obj)" alt="Titelbild">
-          <figcaption class="orbit-caption large-3">
-            <h3 tal:content="obj/title"></h3>
-            <br/>
-            <a tal:attributes="href python:obj.absolute_url()+'/document_view'" class="c-button c-button--wide c-button--slider"
-              style="margin-top: 30px;">Weiterlesen</a>
-          </figcaption>
-        </figure>
+        <a tal:attributes="href python:obj.absolute_url()+'/document_view'">
+          <figure class="orbit-figure">
+            <img class="orbit-image" tal:attributes="src python: viewlet.image(obj)" alt="Titelbild">
+            <figcaption class="orbit-caption large-3">
+              <h3 tal:condition="not:obj/newstitle" tal:content="obj/title"></h3>
+              <h3 tal:condition="obj/newstitle" tal:content="obj/newstitle"></h3>
+              <p tal:condition="not:obj/newstext" tal:content="obj/description"></p>
+              <p tal:condition="obj/newstext" tal:content="obj/newstext"></p>
+            </figcaption>
+          </figure>
+        </a>
       </li>
     </ul>
   </div>

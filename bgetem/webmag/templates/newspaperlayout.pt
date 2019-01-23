@@ -7,6 +7,10 @@
     <title>etem - Magazin für Prävention, Rehabilitation und Entschädigung</title>
     <link rel="stylesheet" tal:attributes="href string:/++resource++bgetem.webmag/assets/css/app.css" />
     <link rel="stylesheet" tal:attributes="href string:/++resource++bgetem.webmag/custom.css" />
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png">
   </head>
   <body>
     

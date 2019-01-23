@@ -157,7 +157,6 @@ class Campaign(api.Viewlet):
             banner = '%s/@@images/newsimage' % obj.absolute_url()
         return banner
 
-
 class InfoBox(api.Viewlet):
     grok.order(20)
     grok.layer(IAnonymousLayer)

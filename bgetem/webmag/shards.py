@@ -75,7 +75,8 @@ class DocumentShard(BaseShard):
             banner['url'] = obj.absolute_url()
             banner['imgtitle'] = obj.newstitle
             banner['category'] = obj.category
-            banner['cssclass'] = '%s' % obj.colorcode
+            banner['cardlink'] = obj.excludenextprev
+            banner['cssclass'] = 'card--%s' % obj.colorcode
         return banner
 
 

@@ -47,7 +47,7 @@
 	</li>
       </ul>
       <div class="small-12 cell text-center">
-	<p class="text-center"><a class="c-button c-button--wide" tal:attributes="href python:context.absolute_url() + '/etem_collection'">Weitere Fachartikel suchen</a> </p>
+	<p class="text-center"><a class="c-button c-button--wide" tal:attributes="href python:context.absolute_url() + '/etem_collection'">Weitere Branchenartikel</a> </p>
       </div>
     </div>
   </div>
