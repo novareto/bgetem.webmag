@@ -44,6 +44,16 @@ class SelectorView(api.View):
             url = ploneapi.portal.get().absolute_url() + '/folder_contents'
             return self.redirect(url)
 
+class BildnachweisView(api.View):
+    api.context(Interface)
+
+    def render(self):
+        pcat = getToolByName(self.context, 'portal_catalog')
+        brains = pcat(portal_type='Magazinfolder', review_state="published", sort_on="effective", sort_order="descending")
+        obj = brains[0].getObject()
+        url = obj.absolute_url() + '/bildrechte'
+        return self.redirect(url)
+
 class Vorschau(api.View):
     api.context(Interface)
 

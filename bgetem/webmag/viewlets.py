@@ -11,7 +11,9 @@ from plone.api import content
 from plone import api as ploneapi
 from .views import NewspaperView
 from zope.interface import Interface
-
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from nva.footerviewlet.interfaces import IFooterSettingsSchema
 from . import get_webmag
 from .views import NewspaperView
 from nva.magazinfolder.interfaces import IAnonymousLayer
@@ -173,3 +175,10 @@ class PageFooter(api.Viewlet):
     def update(self):
         pathroot = self.context.absolute_url_path().split('/')[1]
         self.rechteurl = '/%s/bildrechte' % pathroot
+        try:
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(IFooterSettingsSchema)
+            self.footercontent = settings.footercontent
+        except:
+            self.footercontent = ''
+
