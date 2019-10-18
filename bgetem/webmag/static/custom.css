@@ -1,3 +1,7 @@
 div.card--secondary p {
     color: white;
 }
+
+div.callout-infobox > ul {
+    list-style-type: none;
+}

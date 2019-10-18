@@ -155,6 +155,8 @@ class EventListShard(BaseShard):
         headers = {'Accept':'application/json'}
         results = requests.get(url, headers = headers)
         data = results.json()
+        print 'Das sind die Termine'
+        print data
         eventlist = []
         if data.get('items'):
             for i in data.get('items')[:5]:

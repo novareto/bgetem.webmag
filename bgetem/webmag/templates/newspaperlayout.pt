@@ -5,6 +5,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>etem - Magazin für Prävention, Rehabilitation und Entschädigung</title>
+    <meta tal:condition="layout/og_image" property="og:image" tal:attributes="content layout/og_image" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" tal:attributes="content layout/og_url" />
+    <meta tal:condition="layout/og_title" property="og:title" tal:attributes="content layout/og_title" />
+    <meta tal:condition="layout/og_description" property="og:description" tal:attributes="content layout/og_description" />
     <link rel="stylesheet" tal:attributes="href string:/++resource++bgetem.webmag/assets/css/app.css" />
     <link rel="stylesheet" tal:attributes="href string:/++resource++bgetem.webmag/custom.css" />
     <link rel="apple-touch-icon" href="touch-icon-iphone.png">

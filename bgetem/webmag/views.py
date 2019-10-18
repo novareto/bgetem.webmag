@@ -97,7 +97,8 @@ class NewspaperView(Page):
         contentlist = []
         fc = folder.getFolderContents()
         for i in fc:
-            contentlist.append(i.getObject())
+            if i.portal_type in ['Magazinartikel', 'Link']:
+                contentlist.append(i.getObject())
         return contentlist
         
 class WebmagSearch(Page):

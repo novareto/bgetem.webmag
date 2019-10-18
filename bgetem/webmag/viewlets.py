@@ -20,6 +20,7 @@ from nva.magazinfolder.interfaces import IAnonymousLayer
 from .interfaces import IPageTop, IFooter, INavigation, IAboveContent, IBelowContent
 from nva.magazinartikel.interfaces import get_sparte
 
+
 api.templatedir('templates')
 
 
@@ -144,9 +145,13 @@ class Campaign(api.Viewlet):
         kampagnen = webmag['kampagnen']
 
         if kampagnen.relatedItems:
-            self.dokumente = [x for x in kampagnen.relatedItems[0].to_object.values()]
+            dokumente = [x for x in kampagnen.relatedItems[0].to_object.values()]
         else:
-            self.dokumente = [x for x in webmag['kampagnen'].values()]
+            dokumente = [x for x in webmag['kampagnen'].values()]
+        self.dokumente = []
+        for i in dokumente:
+            if i.portal_type == 'Magazinartikel':
+                self.dokumente.append(i)
 
     def image(self, obj):
         if hasattr(obj, 'titleimage'):
