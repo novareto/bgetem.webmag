@@ -147,6 +147,7 @@ class ContentPage(Page):
             self.context, 'colorcode', 'grey')
         self.quoted = urllib.quote_plus(localurl)
         self.titlequoted = urllib.quote_plus(self.context.Title())
+        self.gallery = self.context.getGallery()
 
 
 class ThemenCollectionPage(Page):
