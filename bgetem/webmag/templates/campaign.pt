@@ -1,4 +1,4 @@
-<div class="grid-container grid-container-padded">
+<div tal:condition="viewlet/dokumente" class="grid-container grid-container-padded">
         <div class="grid-x grid-margin-x">
       
           <div class="cell small-12 slider-campaign">
@@ -13,8 +13,19 @@
               <ul class="orbit-container" tabindex="0" style="height: 1185.5px;">
                 <li class="orbit-slide is-active" tal:repeat="obj viewlet/dokumente">
                   <figure class="orbit-figure">
-                    <img class="orbit-image" tal:attributes="src python: viewlet.image(obj)" alt="Bild 01">
-                    <figcaption class="orbit-caption-campaign medium-8 medium-offset-2 small-12 c-article text-center">
+                    <a tal:condition="obj/newsurl" tal:attributes="href obj/newsurl" target="_blank">
+                      <img class="orbit-image" tal:attributes="src python: viewlet.image(obj)" alt="Bild 01">
+                    </a>
+                    <img tal:condition="not: obj/newsurl" class="orbit-image" tal:attributes="src python: viewlet.image(obj)" alt="Bild 01">
+                    <a tal:condition="obj/newsurl" tal:attributes="href obj/newsurl" target="_blank">            
+                      <figcaption class="orbit-caption-campaign medium-8 medium-offset-2 small-12 c-article text-center">
+                        <h6 class="c-article__catchword" tal:content="obj/dachzeile"></h6>
+                        <h1 class="c-article__title" tal:content="obj/title"></h1>
+                        <p class="c-article__teaser" tal:content="obj/description"></p>
+                      </figcaption>
+                    </a>
+                    <figcaption tal:condition="not: obj/newsurl"
+                        class="orbit-caption-campaign medium-8 medium-offset-2 small-12 c-article text-center">
                       <h6 class="c-article__catchword" tal:content="obj/dachzeile"></h6>
                       <h1 class="c-article__title" tal:content="obj/title"></h1>
                       <p class="c-article__teaser" tal:content="obj/description"></p>

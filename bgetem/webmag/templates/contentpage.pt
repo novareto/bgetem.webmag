@@ -9,7 +9,6 @@
 				<div id="viewlet-below-content-title" tal:content="structure provider:plone.belowcontenttitle"> </div>
 				<p class="c-article__teaser" tal:content="context/Description"></p>
 
-
 				<!--<img class="thumbnail" tal:attributes="src view/image" alt="infoKasten">-->
 				<div id="viewlet-above-content-body" tal:content="structure provider:plone.abovecontentbody"> </div>
 
@@ -22,6 +21,9 @@
                                     <div tal:replace="structure context/infobox/output"/>
                                 </div>
 
+				<div tal:condition="context/video1">
+                                    <div tal:replace="structure context/video1"/>
+                                </div>
 
                                 <div tal:condition="context/text2" class="c-article__content">
                                         <span id="parent-fieldname-text" tal:content="structure python:context.text2.output_relative_to(view.context)"> </span>
@@ -32,6 +34,10 @@
                                     <div tal:replace="structure context/infobox2/output"/>
                                 </div>
 
+				<div tal:condition="context/video2">
+                                    <div tal:replace="structure context/video2"/>
+                                </div>
+
                                 <div tal:condition="context/text3" class="c-article__content">
                                         <span id="parent-fieldname-text" tal:content="structure python:context.text3.output_relative_to(view.context)"> </span>
                                 </div>
@@ -39,6 +45,10 @@
 
                                 <div tal:condition="context/infobox3" class="callout callout--infobox" tal:attributes="class string:callout ${context/boxformat3}">
                                     <div tal:replace="structure context/infobox3/output"/>
+                                </div>
+
+                                <div tal:condition="context/video3">
+                                    <div tal:replace="structure context/video3"/>
                                 </div>
 
                                  <div tal:condition="context/contributors" class="callout">

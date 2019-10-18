@@ -56,6 +56,16 @@ class Vorschau(api.View):
             return self.redirect(url)
         return u"Keine Ausgabe für Vorschauansicht gefunden"
 
+class BildnachweisView(api.View):
+    api.context(Interface)
+
+    def render(self):
+        pcat = getToolByName(self.context, 'portal_catalog')
+        brains = pcat(portal_type='Magazinfolder', review_state="published", sort_on="effective", sort_order="descending")
+        obj = brains[0].getObject()
+        url = obj.absolute_url() + '/bildrechte'
+        return self.redirect(url)
+
 class Index(api.View):
     grok.name('view')
     grok.implements(IViewView)
@@ -266,13 +276,12 @@ class Bildrechte(Page):
             entry = {}
             obj = i.getObject()
             if obj.portal_type == 'Image':
-                if obj.Rights():
-                    entry['title'] = obj.Title()
-                    entry['description'] = obj.Description()
-                    entry['url'] = obj.absolute_url() + '/@@images/image/thumb'
-                    entry['rights'] = obj.Rights()
-                    if not obj.id == u'titelbild':
-                        bildrechte.append(entry)
+                entry['title'] = obj.Title()
+                entry['description'] = obj.Description()
+                entry['url'] = obj.absolute_url() + '/@@images/image/thumb'
+                entry['rights'] = obj.Rights()
+                if not obj.id == u'titelbild':
+                   bildrechte.append(entry)
         bildrechte.sort()
         self.bildrechte = bildrechte
 

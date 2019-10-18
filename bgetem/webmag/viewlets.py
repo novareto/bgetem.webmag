@@ -17,6 +17,9 @@ from .views import NewspaperView
 from nva.magazinfolder.interfaces import IAnonymousLayer
 from .interfaces import IPageTop, IFooter, INavigation, IAboveContent, IBelowContent
 from nva.magazinartikel.interfaces import get_sparte
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+from nva.footerviewlet.interfaces import IFooterSettingsSchema
 
 api.templatedir('templates')
 
@@ -73,6 +76,7 @@ class EtemPlus(api.Viewlet):
         #groups = grouper(size=4, values=values)
         self.groups = groups
 
+
     def sparte(self, obj):
         vocab = get_sparte(self.context)
         sparten = obj.sparte
@@ -81,6 +85,7 @@ class EtemPlus(api.Viewlet):
             mysparten.append(vocab.getTerm(i).title)
         branchen = ', '.join(mysparten)
         return branchen
+
 
     def image(self, obj):
         print obj
@@ -97,12 +102,21 @@ class EtemPlus(api.Viewlet):
                 banner = '%s/@@images/newsimage' % obj.absolute_url()
         return banner
 
+
     def description(self, obj):
         desc = obj.description
         if hasattr(obj, 'newstext'):
             if obj.newstext:
                 desc = obj.newstext
         return desc
+
+
+    def get_url(self, obj):
+        url = obj.absolute_url() + '/document_view'
+        if hasattr(obj, 'newsurl'):
+            if obj.newsurl:
+                url = obj.newsurl
+        return url
 
 
 class Carousel(api.Viewlet):
@@ -129,6 +143,13 @@ class Carousel(api.Viewlet):
             banner = '%s/@@images/newsimage' % obj.absolute_url()
         return banner
 
+    def get_url(self, obj):
+        url = obj.absolute_url() + '/document_view'
+        if hasattr(obj, 'newsurl'):
+            if obj.newsurl:
+                url = obj.newsurl
+        return url        
+
 
 class Campaign(api.Viewlet):
     grok.order(10)
@@ -142,15 +163,23 @@ class Campaign(api.Viewlet):
         kampagnen = webmag['kampagnen']
 
         if kampagnen.relatedItems:
-            self.dokumente = [x for x in kampagnen.relatedItems[0].to_object.values()]
+            dokumente = [x for x in kampagnen.relatedItems[0].to_object.values()]
         else:
-            self.dokumente = [x for x in webmag['kampagnen'].values()]
+            dokumente = [x for x in webmag['kampagnen'].values()]
+        self.dokumente = []
+        for i in dokumente:
+            if i.portal_type == 'Magazinartikel':
+                self.dokumente.append(i)
+
 
     def image(self, obj):
         if hasattr(obj, 'titleimage'):
             if obj.titleimage:
-                imgobj = obj.titleimage.to_object
-                banner = '%s/@@images/image' % imgobj.absolute_url()
+                try:
+                    imgobj = obj.titleimage.to_object
+                    banner = '%s/@@images/image' % imgobj.absolute_url()
+                except:
+                    import pdb;pdb.set_trace()
             else:
                 banner = '%s/@@images/newsimage' % obj.absolute_url()
         else:
@@ -174,3 +203,10 @@ class PageFooter(api.Viewlet):
     def update(self):
         pathroot = self.context.absolute_url_path().split('/')[1]
         self.rechteurl = '/%s/bildrechte' % pathroot
+        try:
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(IFooterSettingsSchema)
+            self.footercontent = settings.footercontent % self.rechteurl
+        except:
+            self.footercontent = ''
+

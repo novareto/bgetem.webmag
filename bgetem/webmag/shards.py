@@ -72,10 +72,14 @@ class DocumentShard(BaseShard):
             else:
                 banner['banner_image'] = ('%s/@@images/newsimage' %
                                           obj.absolute_url())
-            banner['url'] = obj.absolute_url()
+            banner['url'] = obj.absolute_url() + '/document_view'
+            if hasattr(obj, 'newsurl'):
+                if obj.newsurl:
+                    banner['url'] = obj.newsurl
             banner['imgtitle'] = obj.newstitle
             banner['category'] = obj.category
-            banner['cssclass'] = '%s' % obj.colorcode
+            banner['cardlink'] = obj.excludenextprev
+            banner['cssclass'] = 'card--%s' % obj.colorcode
         return banner
 
 

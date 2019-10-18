@@ -1,4 +1,4 @@
-<div class="grid-container grid-container-padded">
+<div tal:condition="python:False" class="grid-container grid-container-padded">
   <div class="grid-x grid-margin-x">
     <div class="small-12 cell c-cat">
       <h1 class="c-cat--headline">
@@ -26,7 +26,7 @@
 	    class="is-active orbit-slide">
 	  <div class="row small-up-1 medium-up-4 align-center">
 	    <div class="column" tal:repeat="item group">
-              <a href="" tal:attributes="href python:view.url(item)+'/document_view'">
+              <a href="" tal:attributes="href python:viewlet.get_url(item)">
 	      <div class="card" data-equalizer-watch>
 		<div class="card-image">
                   <img tal:condition="python: viewlet.image(item)" tal:attributes="src python: viewlet.image(item)" alt="Etem+">

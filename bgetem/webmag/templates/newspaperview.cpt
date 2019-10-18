@@ -2,7 +2,6 @@
   <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium" id="test-eq">
 
     <div class="cell small-12 c-cat">
-      <h1 class="c-cat--headline">THEMEN</h1>
     </div>
 
     <div tal:repeat="thema themen" class="cell medium-6 large-4 small-12" tal:attributes="class string:cell medium-${thema.medium} large-${thema.large} small-${thema.small}">
@@ -18,7 +17,6 @@
 <div class="grid-container">
   <div class="grid-x grid-margin-x">
     <div class="small-12 cell text-center">
-      <a class="c-button c-button--wide" tal:attributes="href context.absolute_url() + '/themen_collection'">Mehr anzeigen</a>
     </div>
   </div> 
 </div>

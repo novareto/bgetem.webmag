@@ -1,0 +1,3 @@
+<div tal:condition="viewlet/footercontent" class="c-container-footer">
+  <span tal:replace="structure viewlet/footercontent"/>
+</div>
