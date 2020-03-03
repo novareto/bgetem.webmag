@@ -167,7 +167,7 @@ class EventListShard(BaseShard):
                     event['eventtext'] = termin.get('title')
                     event['date'] = DateTime(termin.get('startDate')).strftime("%d.%m.%Y")
                     event['location'] = termin.get('location')
-                    event['url'] = termin.get('@id')
+                    event['url'] = termin.get('@id').replace('http://10.33.202.21:8080/portal', 'https://www.bgetem.de')
                     eventlist.append(event)
         return eventlist
 

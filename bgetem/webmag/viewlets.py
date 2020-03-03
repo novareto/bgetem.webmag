@@ -150,8 +150,9 @@ class Campaign(api.Viewlet):
             dokumente = [x for x in webmag['kampagnen'].values()]
         self.dokumente = []
         for i in dokumente:
-            if i.portal_type == 'Magazinartikel':
-                self.dokumente.append(i)
+            if ploneapi.content.get(UID=i.UID()):
+                if i.portal_type == 'Magazinartikel':
+                    self.dokumente.append(i)
 
     def image(self, obj):
         if hasattr(obj, 'titleimage'):

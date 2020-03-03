@@ -32,7 +32,7 @@ class SelectorView(api.View):
     def render(self):
         if ploneapi.user.is_anonymous():
             if 'vorschau-etem.bgetem.de' in self.request.get('URL'):
-                url = ploneapi.portal.get().absolute_url() + '/vorschau'
+                url = ploneapi.portal.get().absolute_url() + '/login'
                 return self.redirect(url)
             else:
                 pcat = getToolByName(self.context, 'portal_catalog')
