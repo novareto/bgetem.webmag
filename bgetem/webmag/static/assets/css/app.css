@@ -4857,7 +4857,7 @@ select {
   left: 8rem;
   margin-bottom: 0;
   padding: 1rem;
-  background-color: #004994;
+  background-color: #ea5045;
   color: #fefefe; }
   @media screen and (max-width: 39.9375em) {
     .orbit-caption {
@@ -9205,9 +9205,9 @@ a.thumbnail {
 .topbar-sticky-shrink {
   padding: 2rem;
   transition: padding 0.25s ease;
-  background: #004994; }
+  background: #ea5045; }
   .topbar-sticky-shrink .menu {
-    background: #004994; }
+    background: #ea5045; }
 
 .is-stuck .topbar-sticky-shrink {
   padding: 1rem;
@@ -9261,7 +9261,7 @@ a.thumbnail {
   .card h5 {
     font-family: "DGUVMetaWeb-Normal", Arial, sans-serif; }
   .card--green {
-    background: #004994 url("../img/mask.png") left top no-repeat; }
+    background: #ea5045 url("../img/mask.png") left top no-repeat; }
     .card--green .card-section,
     .card--green .card-section a {
       color: #fefefe; }
