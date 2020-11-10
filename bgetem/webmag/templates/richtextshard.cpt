@@ -1,9 +1,6 @@
-<div tal:define="banner shard.banner()" tal:attributes="class shard.css">
-  <a href="" tal:attributes="href banner.get('url')"
-     class="description-content">
-    <h3 class="text-uppercase cardhead" tal:content="banner.get('subject')"> Überschrift </h3>
-    <div tal:attributes="class banner.get('lineclass')"></div>
-    <span tal:condition="banner.get('newsrichtext')"
-	  tal:replace="structure banner.get('newsrichtext')"/>
-  </a>
+<div class="card card--secondary" data-equalizer-watch tal:define="banner shard.banner()">
+    <div class="card-section">
+      <p class="card-section--catwhite" tal:content="banner.get('category')"></p>
+      <p class="small-green" tal:condition="banner.get('newsrichtext')" tal:replace="structure banner.get('newsrichtext')"> </p>
+    </div>
 </div>

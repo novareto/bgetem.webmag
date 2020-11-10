@@ -1,67 +1,175 @@
-<div class="container inhalt-wrapper">
-  <div class="inhalt-category card-main">
-    <div class="row">
-      <div class="col-sm-12">
-	<div class="row">
-	  <div class="col-md-3 col-sm-12">
-	    <h3 class="text-uppercase" tal:content="context/category" />
-	    <div class="" tal:attributes="class view/lineclass"
-		 style="margin-left:0px;"/>
-	  </div>
-	  <div class="col-md-6 col-sm-12">
-	    <div class="media description_content">
-	      <div id="viewlet-above-content-title"
-		   tal:content="structure provider:plone.abovecontenttitle" />
-	      <div class="media-body">
-		<h1 tal:content="context/title" />
-	      </div>
-	      <div id="viewlet-below-content-title"
-		   tal:content="structure provider:plone.belowcontenttitle" />
-	    </div>
-	    
-	    <div class="main-content description_content">  
-	      <article class="two-columns">
-		<!--<figure class="one-span margin-bottom-10">
-		  <img class="img-responsive"
-		       width="100%"
-		       tal:attributes="src view/image" />
-		</figure>-->
-		<h3 tal:content="context/description" />
-		<div id="viewlet-above-content-body"
-		   tal:content="structure provider:plone.abovecontentbody"/>
-		<div id="parent-fieldname-text"
-		     tal:condition="context/text"
-		     tal:content="structure python:context.text.output_relative_to(view.context)" />
-	      </article>
-	    </div>
-            <div class="sharedoc">
-	      <h4><strong>Diesen Beitrag teilen</strong></h4>
-	      <ul class="list-inline">
-		<li class="social-icon">
-		  <a class="btn btn-primary" href=""
-		     tal:attributes="href string:https://www.facebook.com/sharer/sharer.php?u=${view/quoted}"
-		     ><i class="fa fa-facebook"></i></a>
-		</li>
-		<li class="social-icon">
-		  <a class="btn btn-primary" href=""
-		     tal:attributes="href string:https://twitter.com/home?status=${view/quoted}"
-		     ><i class="fa fa-twitter"></i></a>
-		</li>
-		<li class="social-icon">
-		  <a class="btn btn-primary" href=""
-		     tal:attributes="href string:https://www.linkedin.com/shareArticle?mini=true&url=${view/quoted}&title=${view/titlequoted}&summary=&source="
-		     ><i class="fa fa-linkedin"></i></a>
-		</li>
-		<li class="social-icon">
-		  <a class="btn btn-primary" href=""
-		     tal:attributes="href string:https://www.xing.com/spi/shares/new?url=${view/quoted}"
-		     ><i class="fa fa-xing"></i></a>
-		</li>
-	      </ul>
-	    </div>
-	  </div>
+<div id="content">
+	<div class="grid-container">
+		<div class="grid-x grid-padding-x">
+
+			<div class="cell medium-8 medium-offset-2 small-12 c-article">
+				<h6 class="c-article__catchword" tal:content="context/dachzeile">Dachzeile</h6>
+				<div id="viewlet-above-content-title" tal:content="structure provider:plone.abovecontenttitle"> </div>
+				<h1 class="c-article__title" tal:content="context/Title"></h1>
+				<div id="viewlet-below-content-title" tal:content="structure provider:plone.belowcontenttitle"> </div>
+				<p class="c-article__teaser" tal:content="context/Description"></p>
+
+
+				<!--<img class="thumbnail" tal:attributes="src view/image" alt="infoKasten">-->
+				<div id="viewlet-above-content-body" tal:content="structure provider:plone.abovecontentbody"> </div>
+
+                                <!-- Start der Gallery -->
+                                <div tal:define="gallery view/gallery" tal:condition="python:gallery['position']=='oben'" id="imgSlider" class="gallery">
+                                  <div class="gallery-content">
+                                    <div class="gallery-slides" tal:repeat="image gallery/images">
+                                    <div class="numbertext"><span tal:replace="image/itemid"/> / <span tal:replace="gallery/number"/></div>
+                                      <img src="" tal:attributes="src image/src" style="width:100%">
+                                    </div>
+                                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                                    <div class="caption-container">
+                                      <p id="caption" class="caption"></p>
+                                    </div>
+                                    <div class="gallery-column" tal:repeat="image gallery/images">
+                                      <img class="gallery-thumbs cursor" tal:attributes="src image/src; alt image/alt; onclick string:currentSlide(${image/itemid})" style="width:100%">
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Ende der Gallery -->
+
+				<div class="c-article__content">
+					<span id="parent-fieldname-text" tal:condition="context/text" 
+                                              tal:content="structure python:context.text.output_relative_to(view.context)"> </span>
+				</div>
+
+                                <div tal:condition="context/infobox" class="callout callout--infobox" tal:attributes="class string:callout ${context/boxformat}">  
+                                    <div tal:replace="structure context/infobox/output"/>
+                                </div>
+
+				<div tal:condition="context/video1">
+                                    <div tal:replace="structure context/video1"/>
+                                </div>
+
+                                <!-- Start der Gallery -->
+                                <div tal:define="gallery view/gallery" tal:condition="python:gallery['position']=='textblock-1'" id="imgSlider" class="gallery">
+                                  <div class="gallery-content">
+                                    <div class="gallery-slides" tal:repeat="image gallery/images">
+                                    <div class="numbertext"><span tal:replace="image/itemid"/> / <span tal:replace="gallery/number"/></div>
+                                      <img src="" tal:attributes="src image/src" style="width:100%">
+                                    </div>
+                                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                                    <div class="caption-container">
+                                      <p id="caption" class="caption"></p>
+                                    </div>
+                                    <div class="gallery-column" tal:repeat="image gallery/images">
+                                      <img class="gallery-thumbs cursor" tal:attributes="src image/src; alt image/alt; onclick string:currentSlide(${image/itemid})" style="width:100%">
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Ende der Gallery -->
+
+                                <div tal:condition="context/text2" class="c-article__content">
+                                        <span id="parent-fieldname-text" tal:content="structure python:context.text2.output_relative_to(view.context)"> </span>
+                                </div>
+
+
+                                <div tal:condition="context/infobox2" class="callout callout--infobox" tal:attributes="class string:callout ${context/boxformat2}">
+                                    <div tal:replace="structure context/infobox2/output"/>
+                                </div>
+
+				<div tal:condition="context/video2">
+                                    <div tal:replace="structure context/video2"/>
+                                </div>
+
+                                <!-- Start der Gallery -->
+                                <div tal:define="gallery view/gallery" tal:condition="python:gallery['position']=='textblock-2'" id="imgSlider" class="gallery">
+                                  <div class="gallery-content">
+                                    <div class="gallery-slides" tal:repeat="image gallery/images">
+                                    <div class="numbertext"><span tal:replace="image/itemid"/> / <span tal:replace="gallery/number"/></div>
+                                      <img src="" tal:attributes="src image/src" style="width:100%">
+                                    </div>
+                                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                                    <div class="caption-container">
+                                      <p id="caption" class="caption"></p>
+                                    </div>
+                                    <div class="gallery-column" tal:repeat="image gallery/images">
+                                      <img class="gallery-thumbs cursor" tal:attributes="src image/src; alt image/alt; onclick string:currentSlide(${image/itemid})" style="width:100%">
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Ende der Gallery -->
+
+                                <div tal:condition="context/text3" class="c-article__content">
+                                        <span id="parent-fieldname-text" tal:content="structure python:context.text3.output_relative_to(view.context)"> </span>
+                                </div>
+
+
+                                <div tal:condition="context/infobox3" class="callout callout--infobox" tal:attributes="class string:callout ${context/boxformat3}">
+                                    <div tal:replace="structure context/infobox3/output"/>
+                                </div>
+
+                                <div tal:condition="context/video3">
+                                    <div tal:replace="structure context/video3"/>
+                                </div>
+
+                                <!-- Start der Gallery -->
+                                <div tal:define="gallery view/gallery" tal:condition="python:gallery['position']=='unten'" id="imgSlider" class="gallery">
+                                  <div class="gallery-content">
+                                    <div class="gallery-slides" tal:repeat="image gallery/images">
+                                    <div class="numbertext"><span tal:replace="image/itemid"/> / <span tal:replace="gallery/number"/></div>
+                                      <img src="" tal:attributes="src image/src" style="width:100%">
+                                    </div>
+                                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                                    <div class="caption-container">
+                                      <p id="caption" class="caption"></p>
+                                    </div>
+                                    <div class="gallery-column" tal:repeat="image gallery/images">
+                                      <img class="gallery-thumbs cursor" tal:attributes="src image/src; alt image/alt; onclick string:currentSlide(${image/itemid})" style="width:100%">
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- Ende der Gallery -->
+
+                                 <div tal:condition="context/contributors" class="callout">
+                                        <ul class="menu simple">
+                                                <li tal:repeat="contrib context/contributors" tal:content="contrib"></li>
+                                        </ul>
+                                </div>
+                                <div tal:condition="view/ausgabe">
+                                  <p class="discreet"><b><span tal:content="view/ausgabe"/></b></p>
+                                </div>
+
+			</div>
+		</div>
 	</div>
-      </div>
-    </div>
-  </div>
+
+    <script>
+          var slideIndex = 1;
+          showSlides(slideIndex);
+
+          function plusSlides(n) {
+            showSlides(slideIndex += n);
+          }
+
+          function currentSlide(n) {
+            showSlides(slideIndex = n);
+          }
+
+          function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("gallery-slides");
+            var dots = document.getElementsByClassName("gallery-thumbs");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+            captionText.innerHTML = dots[slideIndex-1].alt;
+          }
+    </script>
+
 </div>

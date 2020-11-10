@@ -1,7 +1,29 @@
-<div tal:define="banner shard.banner()">
-  <h3 class="text-uppercase cardhead" tal:content="banner.get('subject')"> Überschrift </h3>
-  <div tal:attributes="class banner.get('lineclass')"></div>
-  <h3 tal:condition="banner.get('title')" tal:content="banner.get('title')"> Überschrift </h3>
-  <!--<strong><p tal:content="banner.get('description')">Beschreibung </p></strong>-->
-  <span tal:condition="banner.get('richtext')" tal:replace="structure banner.get('richtext')"/>
+<div tal:define="banner shard.banner()" class="card" data-equalizer-watch tal:attributes="class 'card ' + banner.get('cssclass')">
+  <a tal:condition="not banner.get('cardlink')" href="" class="" tal:attributes="href banner.get('url') + '/document_view'">
+    <!-- wrap .card-image needed for bug IE11 flexbug -->
+    <div class="card-image">
+      <img tal:condition="banner.get('banner_image')" tal:attributes="src banner.get('banner_image');
+                           title banner.get('imgtitle');
+                           alt banner.get('imgtitle')"
+           class="img-responsive"/>
+    </div>
+    <div class="card-section">
+      <p class="card-section--cat" tal:content="banner.get('category')"></p>
+      <h4 tal:content="banner.get('title')"></h4>
+      <p tal:content="banner.get('description')"></p>
+    </div>
+  </a>
+  <span tal:condition="banner.get('cardlink')">
+    <div class="card-image">
+      <img tal:condition="banner.get('banner_image')" tal:attributes="src banner.get('banner_image');
+                           title banner.get('imgtitle');
+                           alt banner.get('imgtitle')"
+           class="img-responsive"/>
+    </div>
+    <div class="card-section">
+      <p class="card-section--cat" tal:content="banner.get('category')"></p>
+      <h4 tal:content="banner.get('title')"></h4>
+      <p tal:content="banner.get('description')"></p>
+    </div>
+  </span>
 </div>

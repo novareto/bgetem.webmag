@@ -1,8 +1,21 @@
-<div tal:define="eventlist shard.banner()">
-  <h3>Termine</h3>
-  <hr/>
-  <article class="description-content event" tal:repeat="event eventlist">
-    <h4 class="event-time" tal:content="event.get('date')" />
-    <p tal:content="event.get('eventtext')" />
-  </article>  
+<div class="card card--green" data-equalizer-watch>
+  <div class="card-section">
+    <h4>Termine</h4>
+    <div tal:repeat="event shard.banner()">
+      <a href="" target="_blank" tal:attributes="href event.get('url')">
+      <div class="card--date">
+        <i class="fa fa-calendar" aria-hidden="true"></i> 
+        <span tal:replace="event.get('date')"> </span> | 
+        <i class="fa fa-map-marker" aria-hidden="true"></i> 
+        <span tal:replace="event.get('location')"> </span> 
+      </div>
+      <div class="">
+        <h6 tal:content="event.get('eventtext')"></h6>
+      </div>
+      </a>
+      <hr>
+    </div>
+    <div class="text-right"><a target="_blank" class="card--link" tal:attributes="href shard.eventsummary()">
+         <i class="fa fa-angle-right" aria-hidden="true"></i> weitere Termine</a></div>
+  </div>
 </div>

@@ -1,0 +1,54 @@
+<div class="grid-container grid-container-padded">
+  <div class="grid-x grid-margin-x">
+    <div class="small-12 cell c-cat">
+      <h1 class="c-cat--headline">
+	etem <em style="color:#afca06;">plus:</em> aus den Branchen
+      </h1>
+    </div>
+  </div>
+  <div class="cell large-12">
+    <div id="plus" class="orbit plus-slider-container"
+	 role="region" aria-label="plus-slider" data-orbit
+	 data-auto-play="false" data-swipe="true"
+	 data-options="timer_speed:5000; bullets:false; timer_container_class: hide; timer_paused_class: hide; timer_progress_class: hide;">
+      <ul class="orbit-container" data-equalizer
+	  data-equalize-on="medium" id="etemplus-eq">
+        <button class="orbit-previous">
+	  <span class="show-for-sr">Previous Slide</span>
+	  <i class="fa fa-angle-left" aria-hidden="true"></i>
+	</button>
+	<button class="orbit-next">
+	  <span class="show-for-sr">Next Slide</span>
+	  <i class="fa fa-angle-right" aria-hidden="true"></i>
+	</button>
+
+	<li tal:repeat="group viewlet/groups"
+	    class="is-active orbit-slide">
+	  <div class="row small-up-1 medium-up-4 align-center">
+	    <div class="column" tal:repeat="item group">
+              <a href="" tal:attributes="href python:view.url(item)+'/document_view'">
+	      <div class="card" data-equalizer-watch>
+		<div class="card-image">
+                  <img tal:condition="python: viewlet.image(item)" tal:attributes="src python: viewlet.image(item)" alt="Etem+">
+		</div>
+		<div class="card-section">
+		  <p class="card-section--cat" tal:content="python: viewlet.sparte(item)">Wasser & Energiewirtschaft</p>
+		  <!--<h5 tal:content="item/dachzeile">Sicherheit bei der betrieblichen Gasversorgung</h5>-->
+		  <h4 tal:content="item/Title" />
+                  <p tal:content="python: viewlet.description(item)"/>
+		</div>
+		<div class="text-right" style="padding-right: 1rem;">
+		</div>
+	      </div>
+            </a>
+	    </div>
+	  </div>
+
+	</li>
+      </ul>
+      <div class="small-12 cell text-center">
+	<p class="text-center"><a class="c-button c-button--wide" tal:attributes="href python:context.absolute_url() + '/etem_collection'">Weitere Branchenartikel</a> </p>
+      </div>
+    </div>
+  </div>
+</div>

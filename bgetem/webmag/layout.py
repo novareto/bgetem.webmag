@@ -2,25 +2,28 @@
 # Copyright (c) 2007-2013 NovaReto GmbH
 # cklinger@novareto.de
 
-from .interfaces import IPageTop, IFooter
-from .layer import IAnonymousLayer, IWebmag
+from .interfaces import IPageTop, IFooter, INavigation, IAboveContent, IBelowContent
 
 from five import grok
 from grokcore.layout import Layout
 from plone import api as ploneapi
-from plone.app.layout.nextprevious.interfaces import INextPreviousProvider
 from uvc.api import api
+from Products.CMFCore.interfaces import ISiteRoot
 from uvc.shards.components import ShardsAsViews
 from uvc.shards.interface import IShardedView
 from zope import interface
 from zope.component import getMultiAdapter
 from plone.app.folder.nextprevious import NextPrevious
 from Products.CMFCore.interfaces import IContentish
+from nva.magazinfolder.interfaces import IAnonymousLayer
+
+
+api.templatedir('templates')
 
 
 class NPWebMag(NextPrevious):
 
-   def getData(self, obj):
+    def getData(self, obj):
         """ return the expected mapping, see `INextPreviousProvider` """
         gNN = getattr(obj, 'excludenextprev', False)
         if gNN:
@@ -42,14 +45,60 @@ class NPWebMag(NextPrevious):
             title=obj.Title(),
             description=obj.Description(),
             portal_type=ptype
-        ) 
+        )
 
 
-api.templatedir('templates')
+class NewsPaperLayout(Layout):
+    api.context(interface.Interface)
+    grok.layer(IAnonymousLayer)
 
+    def getAcquisitionChain(self, context):
+        inner = context.aq_inner
+        iter = inner
+        while iter is not None:
+            yield iter
+            if ISiteRoot.providedBy(iter):
+                break
+            if not hasattr(iter, "aq_parent"):
+                raise RuntimeError("Parent traversing interrupted by object: " + str(parent))
+            iter = iter.aq_parent
 
-class Footer(api.ViewletManager):
-    api.implements(IFooter)
+    def update(self):
+        self.og_title = ''
+        self.og_description = ''
+        self.og_image = ''
+        self.og_url = self.context.absolute_url() + '/document_view'
+        if self.context.title:
+            self.og_title = self.context.title
+        if hasattr(self.context, 'newstitle'):
+            if self.context.newstitle:
+                self.og_title = self.context.newstitle
+        if self.context.description:
+            self.og_description = self.context.description
+        if hasattr(self.context, 'newstext'):
+            if self.context.newstext:
+                self.og_description = self.context.newstext
+        if hasattr(self.context, 'titleimage'):
+            if self.context.titleimage:
+                self.og_image = '%s/@@images/image' %self.context.titleimage.to_object.absolute_url()
+        if hasattr(self.context, 'newsimage'):
+            if self.context.newsimage:
+                self.og_image = '%s/@@images/newsimage' %self.context.absolute_url()
+        if self.context.portal_type == 'Magazinfolder':
+            if hasattr(self.context, 'defaultimage'):
+                if self.context.defaultimage:
+                    self.og_image = '%s/@@images/defaultimage' %self.context.absolute_url()
+        if not self.og_image:
+            parentobjects = self.getAcquisitionChain(self.context)
+            for i in parentobjects:
+                if i.portal_type == 'Magazinfolder':
+                    if i.defaultimage:
+                        self.og_image = '%s/@@images/defaultimage' %i.absolute_url()
+                        return
+
+class NavigationManager(api.ViewletManager):
+    api.name('navigation')
+    api.implements(INavigation)
     api.context(interface.Interface)
     grok.layer(IAnonymousLayer)
 
@@ -62,14 +111,28 @@ class PageTop(api.ViewletManager):
     def nextprevious(self):
         portal = ploneapi.portal.get()
         pathroot = self.context.absolute_url_path().split('/')[1]
-        #nextprev = INextPreviousProvider(portal['bgetem-kompakt-aktuell'])
-        #nextprev = NPWebMag(portal['bgetem-kompakt-aktuell'])
-        nextprev = NPWebMag(portal[pathroot])
-        return {'next': nextprev.getNextItem(self.context),
-                'previous': nextprev.getPreviousItem(self.context)}
-    
+        try:  # BBB
+            nextprev = NPWebMag(portal[pathroot])
+            return {'next': nextprev.getNextItem(self.context),
+                    'previous': nextprev.getPreviousItem(self.context)}
+        except:
+            return {'next': None, 'previous': None}
 
-class NewsPaperLayout(Layout):
+
+class AboveContent(api.ViewletManager):
+    api.implements(IAboveContent)
+    api.context(interface.Interface)
+    grok.layer(IAnonymousLayer)
+
+
+class BelowContent(api.ViewletManager):
+    api.implements(IBelowContent)
+    api.context(interface.Interface)
+    grok.layer(IAnonymousLayer)
+
+
+class Footer(api.ViewletManager):
+    api.implements(IFooter)
     api.context(interface.Interface)
     grok.layer(IAnonymousLayer)
 

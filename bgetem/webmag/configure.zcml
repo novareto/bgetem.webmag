@@ -7,23 +7,25 @@
   <browser:resourceDirectory name="bgetem.webmag" directory="static" />
   <grok:grok package="." />
 
-
+<!--
   <subscriber
       for="bgetem.webmag.layer.IWebmag
            zope.traversing.interfaces.IBeforeTraverseEvent"
       handler=".layer.switch_skin"
       />
-
-     <browser:menuItem
-        for="plone.app.contenttypes.interfaces.IFolder"
-        menu="plone_displayviews"
-        title="newspapaer_view"
-        action="@@newspaper_view"
-        description="List folder contents as product summary view"
-        />
+-->
+  <include package="plone.app.contentmenu" /> 
+  <browser:menuItem
+      for="plone.app.contenttypes.interfaces.IFolder"
+      menu="plone_displayviews"
+      title="newspapaer_view"
+      action="@@newspaper_view"
+      description="List folder contents as product summary view"
+      />
 
   <five:registerPackage package="." />
+<!--
   <interface
       interface="bgetem.webmag.layer.IWebmag" />
-
+-->
 </configure>

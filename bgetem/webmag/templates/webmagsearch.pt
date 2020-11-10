@@ -1,0 +1,70 @@
+<div class="grid-container grid-container-padded">
+  <div class="grid-x grid-margin-x" style="margin-top: 2rem;">
+    <div class="cell large-12" style="background: #eaeaea;">
+      <header class="hero-search-filter">
+        <div class="hero-search-filter-content">
+          <form class="hero-search-filter-form" method="GET" name="search"
+		tal:attributes="href python:view.url()">
+            <label for="findtext">Suche</label>
+            <input id="findtext"
+		   name="value"
+		   class="hero-search-filter-form-find" type="text" />
+            <div class="divider">&nbsp;</div>
+            <label for="findlocate">THEMEN</label>
+            <input id="findlocate" class="hero-search-filter-form-near"
+		   type="text" name="themen" />
+            <button class="button" type="submit" form="search">
+	      <i class="fa fa-search"></i>
+	    </button>
+          </form>
+          <ul class="hero-search-filter-menu menu align-center">
+            <li tal:repeat="theme view/themen">
+	      <a href="#"><i class="fa fa-tag" aria-hidden="true"></i>
+		<span tal:replace="theme">Kompakt</span>
+	      </a>
+	    </li>
+          </ul>
+        </div>
+      </header>
+    </div>
+  </div>
+
+<!-- Start Themen der Rubrik 1 -->
+<div class="c-container-rubrik" style="margin:1rem 0;">
+      
+  <div class="grid-container fluid" data-equalizer data-equalize-on="medium" id="test-eq">
+    <div class="cell small-12 c-cat">
+      <h1 class="c-cat--headline">Themen</h1>
+    </div>
+
+    <tal:results repeat="result view/results">
+      <div class="grid-x grid-margin-x card-list" data-equalizer-watch>
+	<div class="small-12 medium-4 cell">  
+          <div class="card-image text-center">
+            <a class="" href="">
+              <img src="assets/img/card-05.jpg" />
+            </a>
+          </div>
+	</div>
+	<div class="small-12 medium-8 card-section">        
+          <a class="" href="">
+            <p class="card-section--cat">SOME CATEGORY</p>
+            <h4 tal:content="result/Title" />
+            <p>
+	      <span>Some test</span>
+	      <a tal:attributes="href python:view.url(result)">
+		<span class="card-section--more">Mehr</span>
+	      </a>
+	    </p>
+          </a>	
+	</div>
+      </div>
+    </tal:results>
+
+  </div>
+</div>
+
+  
+</div>
+
+

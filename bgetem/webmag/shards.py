@@ -2,17 +2,21 @@
 # Copyright (c) 2007-2013 NovaReto GmbH
 # cklinger@novareto.de
 
-import tweepy
-from tweepy import OAuthHandler
+#import tweepy
+#from tweepy import OAuthHandler
 
+import requests
+import json
 from plone import api as papi
 from uvc.api import api
 from uvc.shards import BaseShard as Shard
 from zope.component import getUtility
+from zope.component import getMultiAdapter
 from collective.prettydate.interfaces import IPrettyDate
 import twitter
 import logging
 from ttp import ttp
+from DateTime import DateTime
 logger = logging.getLogger('nva.bgetemwebmag')
 api.templatedir('templates')
 
@@ -24,6 +28,16 @@ class BaseShard(Shard):
     def css(self):
         return self._namespace.get('class', '')
 
+class SelectShard(BaseShard):
+    api.name('myselect')
+
+    def render(self):
+        view = getMultiAdapter(
+             (self.context, self.request),
+              name="document")
+        html = view().banner(view, self._namespace.get('document')) 
+        return html
+        #return 'Hallo Welt'
 
 class DocumentShard(BaseShard):
     api.name('document')
@@ -35,16 +49,34 @@ class DocumentShard(BaseShard):
             folder = self.context.get(doclist[0])
             obj = folder.get(doclist[1])
         else:
-            obj = self.context.get(doc)
+            folder = self.context.get('themen')
+            obj = folder.get(doc)
         banner = {}
         if obj:
-            banner['subject'] = obj.category
-            banner['title'] = obj.newstitle
-            banner['lineclass'] = 'title-border line-%s' % obj.colorcode
+            banner['title'] = obj.title
+            if hasattr(obj, 'newstitle'):
+                if obj.newstitle:
+                     banner['title'] = obj.newstitle
             banner['description'] = obj.description
-            banner['richtext'] = ''
-            if obj.text:
-                banner['richtext'] = obj.text.output
+            if hasattr(obj, 'newstext'):
+                if obj.newstext:
+                     banner['description'] = obj.newstext
+            if hasattr(obj, 'titleimage'):
+                if obj.titleimage:
+                    imgobj = obj.titleimage.to_object
+                    banner['banner_image'] = ('%s/@@images/image' %
+                                               imgobj.absolute_url())
+                if obj.newsimage:
+                    banner['banner_image'] = ('%s/@@images/newsimage' %
+                                              obj.absolute_url())
+            else:
+                banner['banner_image'] = ('%s/@@images/newsimage' %
+                                          obj.absolute_url())
+            banner['url'] = obj.absolute_url()
+            banner['imgtitle'] = obj.newstitle
+            banner['category'] = obj.category
+            banner['cardlink'] = obj.excludenextprev
+            banner['cssclass'] = 'card--%s' % obj.colorcode
         return banner
 
 
@@ -89,109 +121,16 @@ class StoryShard(BaseShard):
         return banner
 
 
-class EditorialShard(BaseShard):
-    api.name('editorial')
-    tweet_url = "https://twitter.com/DGUVKompakt/status/"
-    
-    def tweets(self, count):        
-        consumer_key = 'noCXFV6QYjtiQ9yX6QYz1fhCi'
-        consumer_secret = 'u9HiILFmGgxZHs1bOEpXCObOWDW4FHkIArFlgdstGH94fQjBye'
-        access_token = '2583843280-5xcsF1g14HTIeVovvw28Z6RkNMdCzZYaoIgXfZh'
-        access_secret = '0r2rTTy9yaeWXb74qbG1XrTvXjCt82hPRlL3nl5agbXmK'
- 
-        auth = OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_secret)
- 
-        api = tweepy.API(auth)
-
-        for status in tweepy.Cursor(api.user_timeline, user_id="@DGUVKompakt").items(count):
-            yield status
-
-    def getSocialContent(self):
-        results = self.getAllTweets()
-        sc = []
-        for i in results:
-            entry = {}
-            entry['name'] = i.user.name
-            entry['screen_name'] = '@%s' %i.user.screen_name
-            twparser = ttp.Parser()
-            mytext = twparser.parse(i.text)
-            entry['title'] = mytext.html
-            entry['description'] = ''
-            entry['desc_html'] = False
-            entry['url'] = self.getTweetUrl(i)
-            datum = i.created_at.split(' ')
-            formdatum = '%s %s %s %s' %(datum[2], datum[1], datum[5], datum[3])
-            try:
-	        entry['date'] = datetime.strptime(formdatum, '%d %b %Y %H:%M:%S').strftime('%d.%m.%Y %H:%M')
-            except:
-	        entry['date'] = formdatum
-            entry['thumb'] = self.getAvatar(i)
-            sc.append(entry)
-        return sc
-
-    def getAvatar(self, result):
-	if result.retweeted:
-	    retweet = result.retweeted_status
-	    return retweet.user.profile_image_url
-	return result.user.profile_image_url
-
-    def getTweetUrl(self, result):
-         if result.urls:
-             return result.urls[0].url
-         return ''
-
-    def getDate(self, result):
-         date_utility = getUtility(IPrettyDate)
-         date = date_utility.date(result.created_at)
-         return date
-
-    def getAllTweets(self):
-        tw = twitter.Api(consumer_key='noCXFV6QYjtiQ9yX6QYz1fhCi',
-		         consumer_secret='u9HiILFmGgxZHs1bOEpXCObOWDW4FHkIArFlgdstGH94fQjBye',
-		         access_token_key='2583843280-5xcsF1g14HTIeVovvw28Z6RkNMdCzZYaoIgXfZh',
-		         access_token_secret='0r2rTTy9yaeWXb74qbG1XrTvXjCt82hPRlL3nl5agbXmK')
-        tw_user = '@DGUVKompakt'
-        max_results = 2
-
-        try:
-            results = tw.GetUserTimeline(tw_user, count=max_results)
-            logger.info("%s results obtained." % len(results))
-        except Exception, e:
-            logger.info("Something went wrong: %s." % e)
-            results = []
-        return results
-
-    def banner(self):
-        doc = self._namespace.get('myeditorial')
-        obj = self.context.get(doc)
-        banner = {}
-        if obj:
-            banner['tweets'] = list(self.tweets(2))
-            banner['tweets'] = self.getSocialContent()
-            banner['subject'] = obj.category
-            banner['lineclass'] = 'title-border line-%s' % obj.colorcode
-            banner['newstext'] = obj.newstext
-            banner['url'] = obj.absolute_url()
-            banner['banner_image'] = None
-            if getattr(obj, 'newsimage', False):
-	        banner['banner_image'] = ('%s/@@images/newsimage' %obj.absolute_url())
-	    banner['newstitle'] = obj.newstitle
-            banner['newsrichtext'] = None
-            if obj.newsrichtext:
-	        banner['newsrichtext'] = obj.newsrichtext.output
-        return banner
-
-
 class RichTextShard(BaseShard):
     api.name('richtext')
 
     def banner(self):
         doc = self._namespace.get('document')
-        obj = self.context.get(doc)
+        folder = self.context.get('themen')
+        obj = folder.get(doc)
         banner = {}
         if obj:
-            banner['subject'] = obj.category
+            banner['category'] = obj.category
             banner['lineclass'] = 'title-border line-%s' % obj.colorcode
             if obj.newsrichtext:
                 banner['newsrichtext'] = obj.newsrichtext.output
@@ -202,30 +141,34 @@ class RichTextShard(BaseShard):
 class EventListShard(BaseShard):
     api.name('eventlist')
 
+    def eventsummary(self):
+        doc = self._namespace.get('eventfolder')
+        folder = self.context.get('themen')
+        termine = folder.get(doc)
+        return termine.sumUrl
+        
     def banner(self):
-        folder = self._namespace.get('eventfolder')
-        obj = self.context.get(folder)
+        doc = self._namespace.get('eventfolder')
+        folder = self.context.get('themen')
+        termine = folder.get(doc)
+        url = termine.remoteUrl
+        headers = {'Accept':'application/json'}
+        results = requests.get(url, headers = headers)
+        data = results.json()
+        print 'Das sind die Termine'
+        print data
         eventlist = []
-        for i in obj.getFolderContents():
-            if i.portal_type == 'Event':
-                event = {}
-                event['eventtext'] = i.Title.decode('utf-8')
-                if i.start.date() == i.end.date():
-                    event['date'] = i.start.strftime("%d.%m.%Y")
-                else:
-                    if i.start.year == i.end.year:
-                        if i.start.month == i.end.month:
-                            event['date'] = "%s. - %s" % (
-                                i.start.day, i.end.strftime("%d.%m.%Y"))
-                        else:
-                            event['date'] = "%s - %s" % (
-                                i.start.strftime("%d.%m"),
-                                i.end.strftime("%d.%m.%Y"))
-                    else:
-                        event['date'] = "%s - %s" % (
-                            i.start.strftime("%d.%m.%Y"),
-                            i.end.strftime("%d.%m.%Y"))
-                eventlist.append(event)
+        if data.get('items'):
+            for i in data.get('items')[:5]:
+                if i.get('@type') == 'Event':
+                    termindata = requests.get(i.get('@id'), headers=headers)
+                    termin = termindata.json()
+                    event = {}
+                    event['eventtext'] = termin.get('title')
+                    event['date'] = DateTime(termin.get('startDate')).strftime("%d.%m.%Y")
+                    event['location'] = termin.get('location')
+                    event['url'] = termin.get('@id').replace('http://10.33.202.21:8080/portal', 'https://www.bgetem.de')
+                    eventlist.append(event)
         return eventlist
 
 

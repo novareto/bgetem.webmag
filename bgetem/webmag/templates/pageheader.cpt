@@ -1,98 +1,33 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="wrapper-header" style="padding-top:10px;">
-      
-      <div class="col-md-12">
-	
-        <div class="col-sm-4 col-xs-12 col-sm-push-8">
-          <ul class="list-inline header-logo">
-            <li>
-	      <a target="_blank" href="http://www.bgetem.de"><img class="main-logo" style="max-width:100%"
-		     alt="Homepage – DGUV" title="Homepage – DGUV"
-		     tal:attributes="src string:/++resource++bgetem.webmag/assets/img/Logo-DGUV-RGB.png" /></a>
-	    </li>
-          </ul>
-        </div>
-	
-        <div class="col-sm-8 col-xs-12 col-sm-pull-4">
-          <span class="" style="margin-top:10px;">
-	  <p>Nachrichten der Deutschen Gesetzlichen Unfallversicherung</p></span>
-          <div class="row flexbox">
-            <div class="navbar-header">
-              <ul class="list-inline">
-		<li>
-		  <a class="" href="" tal:attributes="href view.application_url()">
-		    <img style="margin-top:-14px;max-width:100%;" 
-                         tal:attributes="src string:/++resource++bgetem.webmag/assets/img/bgetem-kompakt-logo.png" />
-		  </a>
-		</li>
-		<li style="vertical-align:top;color:#093999;">
-		  <strong tal:content="context.__parent__.Description()" />
-		</li>
-              </ul>
-            </div>
-          </div>
-	</div>
+<header id="header" class="topbar-sticky-shrink-header">
+  <div class="grid-x grid-padding-x">
+    <div class="small-5 medium-6 cell">
+      <div class="card-image" style="vertical-align: bottom;">
+        <a tal:attributes="href viewlet.magurl" href="index.html">
+	  <img src="/++resource++bgetem.webmag/assets/img/logo_etem_magazin.png" />
+	</a>
+      </div>
+    </div>
+    <div class="small-5 medium-6">
+      <div class="card-image" style="text-align:right;">
+        <img class="logo_bgetem" src="/++resource++bgetem.webmag/assets/img/logo_bgetem.png" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<div data-sticky-container>
+  <div data-sticky data-margin-top='0' data-top-anchor="header:bottom" data-btm-anchor="content:bottom">
+    <div class="top-bar topbar-sticky-shrink">		
+      <div class="title-bar-left c-nav">
+	<!--<button class="menu-icon" type="button" data-open="offCanvas"></button>-->
+	<h5>
+	  <span class="title-bar-title c-nav--title">
+	    etem - Magazin für Prävention,
+	    Rehabilitation und Entschädigung
+	  </span>
+	</h5>
       </div>
       
-      <div class="col-md-12 ivz-navi"> 
-	<div class="">
-	  <ul class="list-inline"
-	      tal:define="np viewletmanager.nextprevious()">
-
-            <li> <button class="btn btn-primary collapsed" type="button" data-toggle="collapse" data-target="#collapseExample" 
-                 aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-bars"></i> Menü</button> </li>
-
-	    <li>
-	      <a class="btn btn-primary"
-		 tal:attributes="href view.application_url()">
-		<i class="fa fa-home" aria-hidden="true"></i>
-	      </a>
-	    </li>
-            <li><a class="btn btn-primary" href="http://www.bgetem.de/de/mediencenter/bgetem-kompakt/index.jsp">Archiv</a></li>
-            <li tal:condition="np['previous']">
-	      <a class="btn btn-primary"
-		 tal:attributes="href np['previous'].url"
-		 ><i class="fa fa-angle-left"></i> zurück</a>
-	    </li>
-          <li tal:condition="np['next']">
-	    <a class="btn btn-primary"
-	       tal:attributes="href np['next'].url"
-	       >weiter <i class="fa fa-angle-right"></i></a>
-	  </li>
-	  </ul>
-	</div>
-      </div>
-    
-      <div class="collapse ivz" style="width:100%;float:left;" id="collapseExample" aria-expanded="false">
-	<div class="row"> 
-	  <div class="col-sm-12"> 
-	    <h4 tal:content="string:Ausgabe ${viewlet.ausgabe}">Ausgabe Juli/August 2016</h4>
-	  </div>
-	</div>
-	<div tal:repeat="group viewlet.doclist" class="col-sm-6">
-	  <ul class="list-unstyled">
-	    <li tal:repeat="entry group">
-	      <a href="" tal:attributes="href entry.get('url')">
-              <span tal:replace="entry.get('linktitle')" />
-	      <i class="fa fa-angle-right"></i>
-	      </a>
-	    </li>
-	  </ul>
-	</div>
-        <!--
-	<div class="col-sm-3"> 
-	  <ul class="list-unstyled">
-	    <li tal:repeat="brain viewlet.get_rubriken()">
-	      <a href="" tal:attributes="href brain.getURL()">
-		<span tal:replace="unicode(brain['Title'], 'utf-8')" />
-		<i class="fa fa-angle-right"></i>
-	      </a>
-	    </li>
-	  </ul>
-	</div>
-        -->
-      </div> <!-- END: collapse ivz -->
-    </div><!-- END: wrapper-header -->
-  </div><!-- END: container -->
-</nav>
+    </div>
+  </div>
+</div>

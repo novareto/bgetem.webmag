@@ -1,0 +1,30 @@
+<div id="maincarousel" class="orbit" role="region"
+     aria-label="BGETEM main slider" data-orbit data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;">
+  <div class="orbit-wrapper">
+    <div class="orbit-controls">
+      <button class="orbit-previous">
+	<span class="show-for-sr">Previous Slide</span>
+	<i class="fa fa-angle-left" aria-hidden="true"></i>
+      </button>
+      <button class="orbit-next">
+	<span class="show-for-sr">Next Slide</span>
+	<i class="fa fa-angle-right" aria-hidden="true"></i>
+      </button>
+    </div>
+    <ul class="orbit-container">
+      <li class="is-active orbit-slide" tal:repeat="obj viewlet/bilder">
+        <a tal:attributes="href python:obj.absolute_url()+'/document_view'">
+          <figure class="orbit-figure">
+            <img class="orbit-image" tal:attributes="src python: viewlet.image(obj)" alt="Titelbild">
+            <figcaption class="orbit-caption large-3">
+              <h3 tal:condition="not:obj/newstitle" tal:content="obj/title"></h3>
+              <h3 tal:condition="obj/newstitle" tal:content="obj/newstitle"></h3>
+              <p tal:condition="not:obj/newstext" tal:content="obj/description"></p>
+              <p tal:condition="obj/newstext" tal:content="obj/newstext"></p>
+            </figcaption>
+          </figure>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -2,12 +2,29 @@
 # Copyright (c) 2007-2013 NovaReto GmbH
 # cklinger@novareto.de
 
+from zope.interface import Interface
 
-from zope import interface
+
+class INavigation(Interface):
+    """
+    """
 
 
-class IPageTop(interface.Interface):
-    """ """
+class IPageTop(Interface):
+    """
+    """
 
-class IFooter(interface.Interface):
-    """ """
+
+class IAboveContent(Interface):
+    """
+    """
+
+
+class IBelowContent(Interface):
+    """
+    """
+
+
+class IFooter(Interface):
+    """
+    """

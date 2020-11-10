@@ -1,0 +1,16 @@
+<ul class="vertical menu drilldown" tal:define="navitems viewlet/navitems" data-drilldown data-auto-height="true" data-animate-height="true">
+  <li tal:repeat="obj navitems">
+    <a href="collection-all-article.html">
+      <i class="fi-list"></i>
+      <span tal:content="obj"></span>
+    </a>
+    <ul class="menu vertical nested">
+      <li tal:repeat="item python: navitems.get(obj)"><a href="" tal:attributes="href item/url" tal:content="item/title">  </a></li>
+    </ul>
+  </li>
+</ul>
+
+<ul class="vertical menu additional">
+  <li><a href="impressum.html"><span>Impressum</span></a></li>
+  <li><a href="collection-all-article.html"><span>Archive</span></a></li>
+</ul>
