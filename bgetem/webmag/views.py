@@ -242,20 +242,21 @@ class EtemCollectionPage(Page):
                     banner['category'] = ''
             self.artlist.append(banner)
 
-class Titelview(Page):
+
+class PageView(Page):
     api.context(Interface)
+    grok.implements(IViewView)
+    grok.name('barrierefreiheit')
     grok.layer(IAnonymousLayer)
 
-
-class MyTitelview(Page):
-    api.context(Interface)
-    grok.layer(IAnonymousLayer)
-
-
-class KompaktTitelview(Page):
-    api.context(Interface)
-    grok.layer(IAnonymousLayer)
-
+    def update(self):
+        doc = self.context.aq_parent['erklaerung-zur-barrierefreiheit']
+        self.doctitle = doc.title
+        self.docdesc = doc.description
+        self.doctext = u''
+        if doc.text:
+            self.doctext = doc.text.output
+        
 
 class Bildrechte(Page):
     api.context(IMagazinFolder)
@@ -288,27 +289,3 @@ class Bildrechte(Page):
         bildrechte.sort()
         self.bildrechte = bildrechte
 
-
-class Kompaktarchiv(Page):
-    api.context(Interface)
-    grok.layer(IAnonymousLayer)
-
-    def update(self):
-        folders = [u'dezember-2016',
-                   u'november-2016',
-                   u'oktober-2016',
-                   u'september-2016',
-                   ]
-        archiv = []
-        for i in folders:
-            portal = ploneapi.portal.get()
-            obj = getattr(portal, i)
-            magazin = {}
-            if obj:
-                magazin['title'] = obj.description
-                magazin['url'] = obj.absolute_url()+'/index.html/kompakttitelview'
-                magazin['imgurl'] = obj.absolute_url() + '/medien-dieser-ausgabe/titelbild/@@images/image/thumb'
-                titelobj = getattr(obj, u'titelstory')
-                magazin['storytitle'] = titelobj.title
-                archiv.append(magazin)
-        self.archiv = archiv

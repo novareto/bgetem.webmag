@@ -181,10 +181,13 @@ class PageFooter(api.Viewlet):
     def update(self):
         pathroot = self.context.absolute_url_path().split('/')[1]
         self.rechteurl = '/%s/bildrechte' % pathroot
+        self.barriere = '/%s/barrierefreiheit' % pathroot
+        print self.barriere
         try:
             registry = getUtility(IRegistry)
             settings = registry.forInterface(IFooterSettingsSchema)
             self.footercontent = settings.footercontent
+            self.footercontent = self.footercontent.replace('@@barrierefreiheit', self.barriere)
         except:
             self.footercontent = ''
 
